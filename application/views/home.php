@@ -21,7 +21,7 @@ a:hover, a:visited, a:link, a:active
   <div class="container-fluid">
 <div class="row"></br></div>
 <form role="form" class="col-lg-12" method="post" action="<?php echo base_url('media/media_search'); ?>">
-<div class="input-group input-group-lg col-md-5 col-sm-10 col-xs-10">            
+<div class="input-group input-group-lg col-md-5 col-sm-12 col-xs-12">            
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="40.000000pt" height="40.000000pt" viewBox="0 0 50.000000 50.000000"
  preserveAspectRatio="xMidYMid meet">
