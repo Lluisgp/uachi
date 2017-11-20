@@ -9,11 +9,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
+<style>
+a:hover, a:visited, a:link, a:active
+{
+  color: black;
+    text-decoration: none;
+}
+</style>
   </head>
   <body>
+  <div class="container-fluid">
 <div class="row"></br></div>
 <form role="form" class="col-lg-12" method="post" action="<?php echo base_url('media/media_search'); ?>">
-<div class="input-group input-group-lg col-sm-4">            
+<div class="input-group input-group-lg col-md-5 col-sm-10 col-xs-10">            
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="40.000000pt" height="40.000000pt" viewBox="0 0 50.000000 50.000000"
  preserveAspectRatio="xMidYMid meet">
@@ -35,5 +43,44 @@ fill="#ff0000" stroke="none">
                
             </div>
           </form>
-  </body>
+          <div class="row"></br></div>          
+</div>
+<div class="container-fluid">
+<div class="flex-row row">
+<?php if ($data) {
+    foreach ($data as $fila) {      
+      echo "<div class='card' style='width: 20rem;margin-left: 20px; margin-bottom: 20px;'>";      
+      echo "<a href='";
+      echo $fila['media_address'];
+      echo "'</a>";
+      
+      echo "<img class='card-img-top' src='";
+      echo base_url();
+      echo "upload/uachi1.PNG'";      
+      echo "alt='Imagen'>";
+      echo "<div class='card-block'>";
+      echo "<h4 class='card-title'>";
+      echo $fila['media_title_es'];
+      echo "</h4>";
+      echo "<p class='card-text'>";
+      echo $fila['media_description_es'];
+      echo "</p>";
+      echo "</div>";
+      echo "<ul class='list-group list-group-flush'>";
+      echo "<li class='list-group-item'>";
+      echo $fila['media_tags'];
+      echo "</li>";
+      echo "</ul>";
+      // echo "<div class='card-block'style='text-align:right; margin-top:auto;'>";
+      // echo "<a href='";
+      // echo $fila['media_address'];
+      // echo "' class='btn btn-primary'>Acceder</a>";
+      // echo "</div></div>";
+      echo "</div>";
+    }
+}
+?>
+</div>
+</div>
+</body>
 </html>

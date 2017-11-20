@@ -47,7 +47,6 @@ if(!$user_id){
           </tr>
       </table>
 
-
     </div>
   </div>
 <a href="<?php echo base_url('user/user_logout');?>" >  <button type="button" class="btn-primary">Logout</button></a> <a href="<?php echo base_url('admin/admin_view');?>" >  <button type="button" class="btn-primary">Admin</button></a> <a href="<?php echo base_url('media/media_search');?>" >  <button type="button" class="btn-primary">Home</button></a>
