@@ -10,7 +10,7 @@
       <div class="row">          
               <div class="login-panel panel panel-success">
                   <div class="panel-heading">
-                      <h3 class="panel-title">Administratió</h3>
+                      <h3 class="panel-title">Administració</h3>
                   </div>
               </div>
       </div>
