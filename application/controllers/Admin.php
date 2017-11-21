@@ -71,7 +71,7 @@ class Admin extends CI_Controller
         //       $this->media_model->upload_image($insert_id,$uploadData);   
         //     }
         
-       if(!empty($_FILES['thumbnail'])){
+       if(!empty($_FILES['thumbnail']['tmp_name'])){
         $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
         $this->media_model->upload_image($insert_id,$file_data);   
        }

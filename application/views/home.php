@@ -54,10 +54,14 @@ fill="#ff0000" stroke="none">
       echo $fila['media_address'];
       echo "'</a>";
       
-      echo "<img class='card-img-top' src='";
-      echo base_url();
-      echo "upload/uachi1.PNG'";      
-      echo "alt='Imagen'>";
+      echo '<img class="card-img-top" src="data:image/jpeg;base64,'.base64_encode( $fila['thumbnail'] ).'"/>';
+
+      //echo "<img class='card-img-top' src='";
+      //echo "<img class='card-img-top' src='data:image/jpeg,".$fila['thumbnail'];
+      //echo base_url('images/' . $fila->thumbnail);      
+      //echo base_url();
+      //echo "upload/uachi1.PNG'";      
+      //echo "' alt='Imagen'>";
       echo "<div class='card-block'>";
       echo "<h4 class='card-title'>";
       echo $fila['media_title_es'];
