@@ -4,12 +4,15 @@ class Media_model extends CI_model
     public function register_media($media)
     {
         $this->db->insert('media', $media);
+        $insert_id = $this->db->insert_id();
+        return  $insert_id;
     }
     public function detail_media($media_id)
     {
     
         $this->db->select('*');
         $this->db->from('media');
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
         $this->db->where('id', $media_id);
   
         if ($query=$this->db->get()) {
@@ -25,6 +28,7 @@ class Media_model extends CI_model
         log_message("error", "search_media form:".$media['media_title_en']);
         $this->db->select('*');
         $this->db->from('media');
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
         if (strlen($media['media_address'])>0) {
             $this->db->or_where('media_address', $media['media_address']);
         }
@@ -64,6 +68,7 @@ class Media_model extends CI_model
     {    
         $this->db->select('*');
         $this->db->from('media');
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
         $this->db->or_like('media_title_en', $word);
         $this->db->or_like('media_title_es', $word);
         $this->db->or_like('media_title_ca', $word);
@@ -82,7 +87,7 @@ class Media_model extends CI_model
     public function search_last_media()
     {
 
-        $query ="select * from media order by media_date DESC limit 10";
+        $query ="select * from media left join thumbnails on media.media_id=thumbnails.id order by media_date DESC limit 10";
     
          $res = $this->db->query($query);
     
@@ -106,4 +111,10 @@ class Media_model extends CI_model
             return false;
         }
     }
+    public function upload_image($id,$imgdata) {
+        //$imgdata = file_get_contents($imgdata['full_path']);//get the content of the image using its path          
+        $data['id'] = $id;
+        $data['thumbnail'] = $imgdata; 
+        $this->db->insert('thumbnails', $data);        
+    } 
 }

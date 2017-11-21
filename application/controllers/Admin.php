@@ -10,11 +10,12 @@ class Admin extends CI_Controller
         $this->load->helper('url');
         $this->load->model('media_model');
         $this->load->model('user_model');
-        $this->load->library('session');
+        $this->load->library('session');        
+        $this->load->helper('form');
     }
 
     public function distribution()
-    {
+    {        
         if (isset($_POST["filter"])) {            
             $this->admin_filter();            
         }
@@ -28,7 +29,9 @@ class Admin extends CI_Controller
         log_message("info", "Make a new insert from a media form");
 
           $user_id=$this->session->userdata('user_id');
-          $pujat=date("Y-m-d H:i:s");
+          $pujat=date("Y-m-d H:i:s");     
+          
+
           //$tags = explode(" ", $this->input->post('media_tags'));
           //$array_tags = array();
           
@@ -52,7 +55,26 @@ class Admin extends CI_Controller
           'media_uploaded'=>$user_id,
           'media_date'=>$pujat
         );
-          $this->media_model->register_media($media);
+          $insert_id=$this->media_model->register_media($media);
+
+        //   if(!empty($_FILES['thumbnail'])){
+        //   $config['upload_path'] = 'upload';
+        //   $config['allowed_types'] = 'gif|jpg|jpeg|png';          
+        //   $this->load->library('upload', $config);   
+        //   $this->upload->initialize($config);
+             
+        //   if($this->upload->do_upload('thumbnail')){
+        //     $uploadData = $this->upload->data();            
+        // }else{
+        //     $uploadData = '';
+        // }
+        //       $this->media_model->upload_image($insert_id,$uploadData);   
+        //     }
+        
+       if(!empty($_FILES['thumbnail'])){
+        $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
+        $this->media_model->upload_image($insert_id,$file_data);   
+       }
 
           $resultat=$this->media_model->search_media($media);
         
@@ -63,7 +85,7 @@ class Admin extends CI_Controller
     public function admin_view()
     {
         $valors=array();
-        $this->load->view("admin.php", array("data"=>$valors));
+        $this->load->view("admin.php", array("data"=>$valors));        
     }
     public function admin_filter()
     {        
@@ -103,5 +125,5 @@ class Admin extends CI_Controller
             }
         }
           $this->load->view("admin.php", array("data"=>$valors));
-    }
+    }    
 }

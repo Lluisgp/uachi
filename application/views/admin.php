@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php echo form_open_multipart('admin/add_media');?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -63,6 +64,7 @@
                               </div>
 
                               <div class="col-sm-4">                                  
+                              <input class="form-control" type="file" name="thumbnail" autofocus tabindex="4" />                              
                               </div>
                               
                         </div>
