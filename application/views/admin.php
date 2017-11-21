@@ -85,10 +85,12 @@
                           </fieldset>
                       </form>                      
                   <!-- </div> -->
-              </div>
-          </div>
+              </div>                      
+          </div>          
       </div>
-      <div class="row"></br>&nbsp;</div>          
+
+      <div class="container"> <div class="row"></br>&nbsp;</div></div>
+      
 <table class="table table-striped">
 <tr>  
     <th>Title</th> 
