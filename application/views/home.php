@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Uachi</title>
+    <title>Uachit</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -52,16 +52,8 @@ fill="#ff0000" stroke="none">
       echo "<div class='card' style='width: 20rem;margin-left: 20px; margin-bottom: 20px;'>";      
       echo "<a href='";
       echo $fila['media_address'];
-      echo "'</a>";
-      
-      echo '<img class="card-img-top" src="data:image/jpeg;base64,'.base64_encode( $fila['thumbnail'] ).'"/>';
-
-      //echo "<img class='card-img-top' src='";
-      //echo "<img class='card-img-top' src='data:image/jpeg,".$fila['thumbnail'];
-      //echo base_url('images/' . $fila->thumbnail);      
-      //echo base_url();
-      //echo "upload/uachi1.PNG'";      
-      //echo "' alt='Imagen'>";
+      echo "'target='_blank' /a>";      
+      echo '<img class="card-img-top" src="data:image/jpeg;base64,'.base64_encode( $fila['thumbnail'] ).'"/>';      
       echo "<div class='card-block'>";
       echo "<h4 class='card-title'>";
       echo $fila['media_title_es'];
@@ -74,12 +66,7 @@ fill="#ff0000" stroke="none">
       echo "<li class='list-group-item'>";
       echo $fila['media_tags'];
       echo "</li>";
-      echo "</ul>";
-      // echo "<div class='card-block'style='text-align:right; margin-top:auto;'>";
-      // echo "<a href='";
-      // echo $fila['media_address'];
-      // echo "' class='btn btn-primary'>Acceder</a>";
-      // echo "</div></div>";
+      echo "</ul>"; 
       echo "</div>";
     }
 }

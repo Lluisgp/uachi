@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://172.20.19.101/uachi/';
+$config['base_url'] = 'http://172.20.19.101/uachit/';
 
 /*
 |--------------------------------------------------------------------------
