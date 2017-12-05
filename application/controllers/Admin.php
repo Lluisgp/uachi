@@ -15,18 +15,19 @@ class Admin extends CI_Controller
     }
 
     public function distribution()
-    {        
+    {      
+        log_message("error", "distribution filter:".isset($_POST["filter"])." add ".isset($_POST["add"]));  
         if (isset($_POST["filter"])) {            
-            $this->admin_filter();            
+            $this->admin_filter();          
         }
         if (isset($_POST["add"])) {            
-            $this->add_media();
-        }
+            $this->add_media();         
+        }        
     }
 
     public function add_media()
     {
-        log_message("info", "Make a new insert from a media form");
+       log_message("error", "Make a new insert from a media form");
 
           $user_id=$this->session->userdata('user_id');
           $pujat=date("Y-m-d H:i:s");     
@@ -88,7 +89,8 @@ class Admin extends CI_Controller
         $this->load->view("admin.php", array("data"=>$valors));        
     }
     public function admin_filter()
-    {        
+    {    
+        log_message("error", "Make a new search enter in admin_filter");    
         $media=array(
             'media_title_en'=>$this->input->post('media_title_en'),
             'media_title_es'=>$this->input->post('media_title_es'),
