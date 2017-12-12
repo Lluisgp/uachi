@@ -21,34 +21,35 @@
         </style>
     </head>
     <body>
-        <div class="row"></br></div>
-<div class="row">
-  <div class="col-sm-8">    
-         <form role="form" class="form-inline" method="post" action="<?php echo base_url('media/media_search'); ?>"> <p>&nbsp;&nbsp;</p> 
-      <svg class="form-group" version="1.0" xmlns="http://www.w3.org/2000/svg"
-                         width="40.000000pt" height="40.000000pt" viewBox="0 0 50.000000 50.000000"
-                         preserveAspectRatio="xMidYMid meet">
+        <div class="container-fluid"></br>
+            <div class="row">
+                <div class="col-sm-8">    
+                    <form role="form" class="form-inline" method="post" action="<?php echo base_url('media/media_search'); ?>"> <p>&nbsp;&nbsp;</p> 
+                        <svg class="form-group" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                             width="40.000000pt" height="40.000000pt" viewBox="0 0 50.000000 50.000000"
+                             preserveAspectRatio="xMidYMid meet">
 
-                    <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)"
-                       fill="#ff0000" stroke="none">
-                    <path d="M167 486 c-55 -21 -103 -61 -134 -114 -24 -40 -28 -58 -28 -123 0
-                          -67 4 -81 30 -125 99 -159 326 -164 425 -8 101 160 -4 368 -192 380 -39 3 -77
-                          -1 -101 -10z m22 -189 c-31 -65 -37 -115 -17 -135 36 -36 98 16 123 104 15 53
-                          36 84 56 84 5 0 1 -19 -7 -42 -9 -24 -16 -70 -17 -103 -2 -56 -1 -60 20 -59
-                          18 0 20 -2 12 -13 -24 -28 -69 -8 -69 30 0 17 -3 16 -31 -7 -38 -32 -71 -41
-                          -98 -27 -32 18 -36 57 -14 133 20 66 20 68 2 68 -11 0 -19 2 -19 4 0 2 -2 10
-                          -5 18 -4 10 6 12 44 10 l49 -4 -29 -61z"/>
-                    </g>
-    </svg><p>&nbsp;&nbsp;</p> 
-    <input type="text" class="center-block form-control input-lg cercar" title="Cercar" name="cerca" placeholder="Introdueïx el que vols cercar..."/>
-    <p>&nbsp;&nbsp;</p> 
-      <input class="btn btn-primary" type="submit" value="Cerca" name="Cercabt"/></form>
-  </div> 
-<div class="col-sm-4"style="text-align:right">
-  <p>login</p>
-</div>
-</div>         
-        <div class="row"></br></div> 
+                        <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)"
+                           fill="#ff0000" stroke="none">
+                        <path d="M167 486 c-55 -21 -103 -61 -134 -114 -24 -40 -28 -58 -28 -123 0
+                              -67 4 -81 30 -125 99 -159 326 -164 425 -8 101 160 -4 368 -192 380 -39 3 -77
+                              -1 -101 -10z m22 -189 c-31 -65 -37 -115 -17 -135 36 -36 98 16 123 104 15 53
+                              36 84 56 84 5 0 1 -19 -7 -42 -9 -24 -16 -70 -17 -103 -2 -56 -1 -60 20 -59
+                              18 0 20 -2 12 -13 -24 -28 -69 -8 -69 30 0 17 -3 16 -31 -7 -38 -32 -71 -41
+                              -98 -27 -32 18 -36 57 -14 133 20 66 20 68 2 68 -11 0 -19 2 -19 4 0 2 -2 10
+                              -5 18 -4 10 6 12 44 10 l49 -4 -29 -61z"/>
+                        </g>
+                        </svg><p>&nbsp;&nbsp;</p> 
+                        <input type="text" class="center-block form-control input-lg cercar" title="Cercar" name="cerca" placeholder="Introdueïx el que vols cercar..."/>
+                        <p>&nbsp;&nbsp;</p> 
+                        <input class="btn btn-primary" type="submit" value="Cerca" name="Cercabt"/></form>
+                </div> 
+                <div class="col-sm-4"style="text-align:right">
+                    <p>login</p>
+                </div>
+            </div>     
+            </br>
+        </div>            
         <div class="container-fluid">
             <div class="flex-row row">
                 <?php
