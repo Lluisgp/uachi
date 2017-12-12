@@ -11,7 +11,11 @@ class Media extends CI_Controller
          $this->load->model('user_model');
          $this->load->model('media_model');
     }
-
+public function index()
+{
+$this->media_search();
+}
+    
     public function media_search()
     {
         $cerca=$this->input->post('cerca');
