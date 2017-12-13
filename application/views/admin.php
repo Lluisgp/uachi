@@ -6,7 +6,7 @@
         <title>Administració</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     </head>
-    <body>
+    <body>         
         <div class="container-fluid">
             <div class="row">          
                 <div class="login-panel panel panel-success">
@@ -21,7 +21,7 @@
                 echo $error_msg;
             }
             ?>
-
+            <?php echo form_open_multipart(base_url('admin/distribution'));?>
             <form role="form" method="post" action="<?php echo base_url('admin/distribution'); ?>">
                 <fieldset>
                     <div class="row">
@@ -52,32 +52,48 @@
 
                     </div>
                 </fieldset>
+                <fieldset>
+                    </br>
 
-                </br>
+                    <div class="row">
+                        <div class="col-sm-4">                             
+                            <p>TAGS</p>
+                        </div>                   
+                        <div class="col-sm-4">
+                            <p>VIDEO</p>
+                        </div>
+
+                        <div class="col-sm-4">                                  
+                            <p>IMATGE</p>
+                        </div>
+
+                    </div>
+                </fieldset>
                 <fieldset>
                     <div class="row">
                         <div class="col-sm-4">                             
                             <input class="form-control" placeholder="TAGS" name="media_tags" type="text" autofocus tabindex="3">
                         </div>                   
                         <div class="col-sm-4">
-                            <input class="form-control" placeholder="URL" name="media_address" type="text" autofocus tabindex="4">
+                            <!-- <input class="form-control" placeholder="URL" name="media_address" type="text" autofocus tabindex="4"> -->
+                            <input class="form-control" type="file" name="video" autofocus tabindex="4" />                              
                         </div>
 
                         <div class="col-sm-4">                                  
-                            <input class="form-control" type="file" name="thumbnail" autofocus tabindex="4" />                              
+                            <input class="form-control" type="file" name="thumbnail" autofocus tabindex="5"/>                              
                         </div>
 
                     </div>
-                </fieldset>
-
-                </br>
+                    </br>
+                </fieldset>                
                 <fieldset>
                     <div class="row">
                         <div class="col-sm-4">
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Add" name="add" tabindex="5" > 
                         </div>                
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 form-inline">
+                            <div class="form-inline col-sm-6">    <input class="form-inline btn btn-lg btn-success btn-block" type="submit" value="Delete" name="delete"></div> <div class="form-inline col-sm-6"><input class="form-inline btn btn-lg btn-success btn-block" type="submit" value="Modify" name="modify"></div>
                         </div>                
 
                         <div class="col-sm-4">                                         

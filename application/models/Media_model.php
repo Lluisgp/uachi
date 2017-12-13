@@ -117,4 +117,10 @@ class Media_model extends CI_model
         $data['thumbnail'] = $imgdata; 
         $this->db->insert('thumbnails', $data);        
     } 
+      public function upload_video($id,$imgdata) {
+        //$imgdata = file_get_contents($imgdata['full_path']);//get the content of the image using its path          
+        $data['id'] = $id;
+        $data['videodata'] = $imgdata; 
+        $this->db->insert('video', $data);        
+    } 
 }

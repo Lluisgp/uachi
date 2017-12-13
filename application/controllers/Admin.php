@@ -56,25 +56,16 @@ class Admin extends CI_Controller
           'media_uploaded'=>$user_id,
           'media_date'=>$pujat
         );
-          $insert_id=$this->media_model->register_media($media);
-
-        //   if(!empty($_FILES['thumbnail'])){
-        //   $config['upload_path'] = 'upload';
-        //   $config['allowed_types'] = 'gif|jpg|jpeg|png';          
-        //   $this->load->library('upload', $config);   
-        //   $this->upload->initialize($config);
-             
-        //   if($this->upload->do_upload('thumbnail')){
-        //     $uploadData = $this->upload->data();            
-        // }else{
-        //     $uploadData = '';
-        // }
-        //       $this->media_model->upload_image($insert_id,$uploadData);   
-        //     }
+          $insert_id=$this->media_model->register_media($media);     
         
        if(!empty($_FILES['thumbnail']['tmp_name'])){
         $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
         $this->media_model->upload_image($insert_id,$file_data);   
+       }
+       
+       if(!empty($_FILES['video']['tmp_name'])){
+        $file_data = file_get_contents($_FILES['video']['tmp_name']);
+        $this->media_model->upload_video($insert_id,$file_data);   
        }
 
           $resultat=$this->media_model->search_media($media);
