@@ -32,9 +32,10 @@ Installation
 
 Install as an codeigniter application
 
-Important configuration for database, in my.ini from yous mysql database set:
+Important configuration for database, in my.ini file from your mysql database set:
 
 max_allowed_packet = 200M
+
 innodb_log_file_size = 256M
 
 *******

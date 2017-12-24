@@ -26,21 +26,21 @@ $this->media_search();
         if (strlen($cerca)>0) {
             log_message("error", "Make a search");
             $valors=$this->media_model->search_word_media($cerca);
-            if ($valors) {
-                foreach ($valors as $row) {
-                        $titulo=$row['media_title_es'];
-                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
-                }
-            }
+//            if ($valors) {
+//                foreach ($valors as $row) {
+//                        $titulo=$row['media_title'];
+//                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
+//                }
+//            }
         } else {
             log_message("error", "Give-me first results");
             $valors=$this->media_model->search_last_media();
-            if ($valors) {
-                foreach ($valors as $row) {
-                        $titulo=$row['media_title_es'];
-                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
-                }
-            }
+//            if ($valors) {
+//                foreach ($valors as $row) {
+//                        $titulo=$row['media_title'];
+//                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
+//                }
+//            }
         }
           $this->load->view("home.php", array("data"=>$valors));
     }

@@ -25,34 +25,22 @@ class Media_model extends CI_model
     public function search_media($media)
     {
     
-        log_message("error", "search_media form:".$media['media_title_en']);
+        log_message("error", "search_media form:".$media['media_title']);
         $this->db->select('*');
         $this->db->from('media');
         $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
         if (strlen($media['media_address'])>0) {
             $this->db->or_where('media_address', $media['media_address']);
         }
-        if (strlen($media['media_title_en'])>0) {
-            $this->db->or_where('media_title_en', $media['media_title_en']);
-        }
-        if (strlen($media['media_title_es'])>0) {
-            $this->db->or_where('media_title_es', $media['media_title_es']);
-        }
-        if (strlen($media['media_title_ca'])>0) {
-            $this->db->or_where('media_title_ca', $media['media_title_ca']);
-        }
+        if (strlen($media['media_title'])>0) {
+            $this->db->or_where('media_title', $media['media_title']);
+        }       
         if (strlen($media['media_tags'])>0) {
             $this->db->or_like('media_tags', $media['media_tags']);
         }
-        if (strlen($media['media_description_en'])>0) {
-            $this->db->or_like('media_description_en', $media['media_description_en']);
-        }
-        if (strlen($media['media_description_es'])>0) {
-            $this->db->or_like('media_description_es', $media['media_description_es']);
-        }
-        if (strlen($media['media_description_ca'])>0) {
-            $this->db->or_like('media_description_ca', $media['media_description_ca']);
-        }
+        if (strlen($media['media_description'])>0) {
+            $this->db->or_like('media_description', $media['media_description']);
+        }      
  
         $res = $this->db->get();
      
@@ -69,9 +57,7 @@ class Media_model extends CI_model
         $this->db->select('*');
         $this->db->from('media');
         $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
-        $this->db->or_like('media_title_en', $word);
-        $this->db->or_like('media_title_es', $word);
-        $this->db->or_like('media_title_ca', $word);
+        $this->db->or_like('media_title', $word);       
         $this->db->or_like('media_tags', $word);
         
         $res = $this->db->get();

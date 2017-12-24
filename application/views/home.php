@@ -99,10 +99,10 @@
                         echo '<img class="card-img-top" src="data:image/jpeg;base64,' . base64_encode($fila['thumbnail']) . '"/>';
                         echo "<div class='card-block'>";
                         echo "<h4 class='card-title'>";
-                        echo $fila['media_title_es'];
+                        echo $fila['media_title'];
                         echo "</h4>";
                         echo "<p class='card-text'>";
-                        echo $fila['media_description_es'];
+                        echo $fila['media_description'];
                         echo "</p>";
                         echo "</div>";
                         echo "<ul class='list-group list-group-flush'>";

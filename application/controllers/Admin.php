@@ -42,16 +42,9 @@ class Admin extends CI_Controller
         // }
         
           $media=array(
-          'media_title_en'=>$this->input->post('media_title_en'),
-          'media_title_es'=>$this->input->post('media_title_es'),
-          'media_title_ca'=>$this->input->post('media_title_ca'),
-      
-          'media_description_en'=>$this->input->post('media_description_en'),
-          'media_description_es'=>$this->input->post('media_description_es'),
-          'media_description_ca'=>$this->input->post('media_description_ca'),
-
+          'media_title'=>$this->input->post('media_title'),      
+          'media_description'=>$this->input->post('media_description'),
           'media_tags'=>$this->input->post('media_tags'),
-
           'media_address'=>$this->input->post('media_address'),
           'media_uploaded'=>$user_id,
           'media_date'=>$pujat
@@ -83,16 +76,9 @@ class Admin extends CI_Controller
     {    
         log_message("error", "Make a new search enter in admin_filter");    
         $media=array(
-            'media_title_en'=>$this->input->post('media_title_en'),
-            'media_title_es'=>$this->input->post('media_title_es'),
-            'media_title_ca'=>$this->input->post('media_title_ca'),
-        
-            'media_description_en'=>$this->input->post('media_description_en'),
-            'media_description_es'=>$this->input->post('media_description_es'),
-            'media_description_ca'=>$this->input->post('media_description_ca'),
-  
-            'media_tags'=>$this->input->post('media_tags'),
-  
+            'media_title'=>$this->input->post('media_title'),          
+            'media_description'=>$this->input->post('media_description'),  
+            'media_tags'=>$this->input->post('media_tags'),  
             'media_address'=>$this->input->post('media_address'),            
           );
         
@@ -101,21 +87,21 @@ class Admin extends CI_Controller
         if ($media) {
             log_message("error", "Make a search");
             $valors=$this->media_model->search_media($media);
-            if ($valors) {
-                foreach ($valors as $row) {
-                        $titulo=$row['media_title_es'];
-                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
-                }
-            }
+//            if ($valors) {
+//                foreach ($valors as $row) {
+//                        $titulo=$row['media_title'];
+//                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
+//                }
+//            }
         } else {
             log_message("error", "Give-me first results");
             $valors=$this->media_model->search_last_media();
-            if ($valors) {
-                foreach ($valors as $row) {
-                        $titulo=$row['media_title_es'];
-                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
-                }
-            }
+//            if ($valors) {
+//                foreach ($valors as $row) {
+//                        $titulo=$row['media_title'];
+//                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
+//                }
+//            }
         }
           $this->load->view("admin.php", array("data"=>$valors));
     }    
