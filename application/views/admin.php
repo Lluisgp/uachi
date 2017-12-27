@@ -142,7 +142,7 @@
 </table>
 </div>
 <div class="alert alert-success fixed-bottom" id="eventsResult">
-    Registre d'accions
+     <?php if ($error) { echo $error; } else { echo "Registre d'accions";} ?>
 </div>
 </body>
 </html>

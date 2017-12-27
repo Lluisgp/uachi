@@ -22,24 +22,34 @@ class Admin extends CI_Controller
         }
         if (isset($_POST["add"])) {            
             $this->add_media();         
-        }        
+        }  
+        if (isset($_POST["delete"])) {            
+            $this->delete_media();         
+        } 
+        if (isset($_POST["modify"])) {            
+            $this->modify_media();         
+        } 
     }
 
+    public function delete_media(){   
+        
+        $id=$this->input->post('media_id');
+        $resultat="S'ha esborrat ";
+        $valors=array();
+        $resultat .=$this->media_model->delete_media($id);         
+        $resultat .=" registre";
+        $this->load->view("admin.php", array("data"=>$valors,"error"=>$resultat));
+    }
+    
+    public function modify_media(){        
+         $valors=array();
+         $this->load->view("admin.php", array("data"=>$valors,"error"=>"Modificat!"));
+    }
+            
     public function add_media()
     {
-       log_message("error", "Make a new insert from a media form");
-
           $user_id=$this->session->userdata('user_id');
           $pujat=date("Y-m-d H:i:s");     
-          
-
-          //$tags = explode(" ", $this->input->post('media_tags'));
-          //$array_tags = array();
-          
-        //   foreach ($tags as $valor) {
-        //       $result=$this->media_model->tag_check($valor);
-        //       $array_tags[]=$result;
-        // }
         
           $media=array(
           'media_title'=>$this->input->post('media_title'),      
@@ -64,17 +74,19 @@ class Admin extends CI_Controller
           $resultat=$this->media_model->search_media($media);
         
         $valors=array();
-        $this->load->view("admin.php", array("data"=>$valors));
+        $errors=array();
+        $this->load->view("admin.php", array("data"=>$valors,"error"=>$errors));
     }
 
     public function admin_view()
     {
         $valors=array();
-        $this->load->view("admin.php", array("data"=>$valors));        
+        $errors=array();
+        //$this->load->view("admin.php", array("data"=>$valors)); 
+        $this->load->view("admin.php", array("data"=>$valors,"error"=>$errors));
     }
     public function admin_filter()
-    {    
-        log_message("error", "Make a new search enter in admin_filter");    
+    {   
         $media=array(
             'media_title'=>$this->input->post('media_title'),          
             'media_description'=>$this->input->post('media_description'),  
@@ -84,25 +96,13 @@ class Admin extends CI_Controller
         
         $valors="";
         
-        if ($media) {
-            log_message("error", "Make a search");
+        if ($media) {            
             $valors=$this->media_model->search_media($media);
-//            if ($valors) {
-//                foreach ($valors as $row) {
-//                        $titulo=$row['media_title'];
-//                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
-//                }
-//            }
-        } else {
-            log_message("error", "Give-me first results");
+        } else {            
             $valors=$this->media_model->search_last_media();
-//            if ($valors) {
-//                foreach ($valors as $row) {
-//                        $titulo=$row['media_title'];
-//                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
-//                }
-//            }
         }
-          $this->load->view("admin.php", array("data"=>$valors));
+          //$this->load->view("admin.php", array("data"=>$valors));
+          $errors=array();
+          $this->load->view("admin.php", array("data"=>$valors,"error"=>$errors));
     }    
 }
