@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
-
+<!-- Custom files -->
+        <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/custom.css">
 	<style type="text/css">
 
 	::selection { background-color: #E13300; color: white; }
