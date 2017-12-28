@@ -53,8 +53,7 @@ class Admin extends CI_Controller {
                 'media_id' => $id,
                 'media_title' => $this->input->post('media_title'),
                 'media_description' => $this->input->post('media_description'),
-                'media_tags' => $this->input->post('media_tags'),
-                'media_address' => $this->input->post('media_address'),
+                'media_tags' => $this->input->post('media_tags'),                
                 'media_uploaded' => $user_id,
                 'media_date' => $pujat
             );

@@ -1,47 +1,36 @@
 <?php
 
-class Media extends CI_Controller
-{
+class Media extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
 
         parent::__construct();
-         $this->load->helper('url');
-         $this->load->model('user_model');
-         $this->load->model('media_model');
+        $this->load->helper('url');
+        $this->load->model('user_model');
+        $this->load->model('media_model');
     }
-public function index()
-{
-$this->media_search();
-}
-    
-    public function media_search()
-    {
-        $cerca=$this->input->post('cerca');
-        $valors="";
 
-        log_message("error", "valor de cerca: ".$cerca);
+    public function index() {
+        $this->media_search();
+    }
 
-        if (strlen($cerca)>0) {
-            log_message("error", "Make a search");
-            $valors=$this->media_model->search_word_media($cerca);
-//            if ($valors) {
-//                foreach ($valors as $row) {
-//                        $titulo=$row['media_title'];
-//                        log_message("error", "resultats de cerca per text->titulo: ".$titulo);
-//                }
-//            }
+    public function media_search() {
+        $cerca = $this->input->post('cerca');
+        $valors = "";
+
+        if (strlen($cerca) > 0) {
+            $valors = $this->media_model->search_word_media($cerca);
         } else {
-            log_message("error", "Give-me first results");
-            $valors=$this->media_model->search_last_media();
-//            if ($valors) {
-//                foreach ($valors as $row) {
-//                        $titulo=$row['media_title'];
-//                        log_message("error", "resultats de cerca per data titulo: ".$titulo);
-//                }
-//            }
+            $valors = $this->media_model->search_last_media();
         }
-          $this->load->view("home.php", array("data"=>$valors));
+        $this->load->view("home.php", array("data" => $valors));
     }
+
+    public function media_show() {
+        $id = $this->input->get('media_id', TRUE);
+        $valors = "";
+        $valors = $this->media_model->detail_media($id);        
+        $this->load->view("show.php", array("data" => $valors));
+    }
+
 }

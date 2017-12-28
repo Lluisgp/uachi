@@ -2,8 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Login-CI Login Registration</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title"> -->
+    <title>Registre</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
  <!-- Custom files -->
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/custom.css">
@@ -52,7 +51,7 @@
 
                         </fieldset>
                     </form>
-                <center><b>Not registered ?</b> <br></b><a href="<?php echo base_url('user'); ?>">Register here</a></center><!--for centered text-->
+                <center><b>No estas registrat?</b> <br></b><a href="<?php echo base_url('user'); ?>">Fes-ho aqui!</a></center><!--for centered text-->
 
                 </div>
             </div>

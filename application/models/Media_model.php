@@ -8,7 +8,7 @@ class Media_model extends CI_model {
         return $insert_id;
     }
 
-    public function modify_media($media) {        
+    public function modify_media($media) {
         $this->db->where('media_id', $media['media_id']);
         $this->db->update('media', $media);
         $update_id = $media['media_id'];
@@ -19,8 +19,9 @@ class Media_model extends CI_model {
 
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
-        $this->db->where('id', $media_id);
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
+        $this->db->join('video', 'media.media_id = video.id', 'left');
+        $this->db->where('media_id', $media_id);
 
         if ($query = $this->db->get()) {
             return $query->row_array();
@@ -56,7 +57,7 @@ class Media_model extends CI_model {
     public function search_word_media($word) {
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         $this->db->or_like('media_title', $word);
         $this->db->or_like('media_tags', $word);
 
@@ -103,23 +104,42 @@ class Media_model extends CI_model {
         $this->db->insert('thumbnails', $data);
     }
 
-    public function update_image($id, $imgdata) {      
-        $this->db->where('id', $id);        
-        $data['thumbnail'] = $imgdata;
-        $this->db->update('thumbnails', $data);        
+    public function update_image($id, $imgdata) {
+        $this->db->select('*');
+        $this->db->from('thumbnails');
+        $this->db->where('id', $id);
+
+        $res = $this->db->get();
+
+        if ($res->num_rows() > 0) {
+            $this->db->where('id', $id);
+            $data['thumbnail'] = $imgdata;
+            $this->db->update('thumbnails', $data);
+        } else {
+            $this->upload_image($id, $imgdata);
+        }
     }
 
     public function upload_video($id, $imgdata) {
-        //$imgdata = file_get_contents($imgdata['full_path']);//get the content of the image using its path          
         $data['id'] = $id;
         $data['videodata'] = $imgdata;
         $this->db->insert('video', $data);
     }
 
     public function update_video($id, $imgdata) {
-        $this->db->where('id', $id);        
-        $data['videodata'] = $imgdata;
-        $this->db->update('video', $data);  
+        $this->db->select('*');
+        $this->db->from('video');
+        $this->db->where('id', $id);
+
+        $res = $this->db->get();
+
+        if ($res->num_rows() > 0) {
+            $this->db->where('id', $id);
+            $data['videodata'] = $imgdata;
+            $this->db->update('video', $data);
+        } else {
+            $this->upload_video($id, $imgdata);
+        }
     }
 
     public function delete_media($id) {

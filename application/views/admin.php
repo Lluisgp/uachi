@@ -5,19 +5,18 @@
         <meta charset="utf-8">
         <title>Administració</title>               
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <script type = 'text/javascript' src = "<?php echo base_url();?>js/jquery-3.2.1.js"></script> 
+        <script type = 'text/javascript' src = "<?php echo base_url(); ?>js/jquery-3.2.1.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
-        
-        
+
         <!-- jquery datatables -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/> 
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
         <!-- Custom files -->
         <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>css/custom.css">
-        <script type = 'text/javascript' src = "<?php echo base_url();?>js/admin.js"></script>
+        <script type = 'text/javascript' src = "<?php echo base_url(); ?>js/admin.js"></script>
     </head>
     <body>         
         <div class="container-fluid">
@@ -34,7 +33,7 @@
                 echo $error_msg;
             }
             ?>
-            <?php echo form_open_multipart(base_url('admin/distribution'));?>
+            <?php echo form_open_multipart(base_url('admin/distribution')); ?>
             <form role="form" method="post" action="<?php echo base_url('admin/distribution'); ?>">
                 <fieldset>
                     <div class="row">
@@ -45,10 +44,10 @@
                         <div class="col-sm-8">
                             <textarea class="form-control" placeholder="Descripció" name="media_description" type="text" autofocus tabindex="2"></textarea>
                         </div>
-                        
+
                     </div>  
                 </fieldset>                                
-               
+
                 <fieldset>
                     </br>
 
@@ -105,44 +104,48 @@
 </div>
 <table id="resultats" class="table table-striped table-hover">
     <thead>
-    <tr>
-        <th>Identificador</th> 
-        <th>Titol</th> 
-        <th>Descripció</th>
-        <th>Tags</th> 
-        <th>Data</th>         
-    </tr>
+        <tr>
+            <th>Identificador</th> 
+            <th>Titol</th> 
+            <th>Descripció</th>
+            <th>Tags</th> 
+            <th>Data</th>         
+        </tr>
     </thead>
     <tbody>
-    <?php
-    if ($data) {
-        foreach ($data as $fila) {   
-            //echo "<tr>";   
-            echo "<tr>";
-             echo "<td>";         
-            echo $fila['media_id'];         
-            echo "</td>";
-            echo "<td>";         
-            echo $fila['media_title'];         
-            echo "</td>";
-            echo "<td>";
-            echo $fila['media_description'];
-            echo "</td>";
-            echo "<td>";
-            echo $fila['media_tags'];
-            echo "</td>";
-            echo "<td>";
-            echo $fila['media_date'];
-            echo "</td>";            
-            echo "</tr>";
+        <?php
+        if ($data) {
+            foreach ($data as $fila) {
+                //echo "<tr>";   
+                echo "<tr>";
+                echo "<td>";
+                echo $fila['media_id'];
+                echo "</td>";
+                echo "<td>";
+                echo $fila['media_title'];
+                echo "</td>";
+                echo "<td>";
+                echo $fila['media_description'];
+                echo "</td>";
+                echo "<td>";
+                echo $fila['media_tags'];
+                echo "</td>";
+                echo "<td>";
+                echo $fila['media_date'];
+                echo "</td>";
+                echo "</tr>";
+            }
         }
-    }
-    ?>
+        ?>
     </tbody>
 </table>
 </div>
 <div class="alert alert-success fixed-bottom" id="eventsResult">
-     <?php if ($error) { echo $error; } else { echo "Registre d'accions";} ?>
+    <?php if ($error) {
+        echo $error;
+    } else {
+        echo "Registre d'accions";
+    } ?>
 </div>
 </body>
 </html>
