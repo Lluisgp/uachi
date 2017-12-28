@@ -97,7 +97,13 @@
                         echo "<a href='";
                         echo $fila['media_address'];
                         echo "'target='_blank' /a>";
+                        if ($fila['thumbnail']){
                         echo '<img class="card-img-top" src="data:image/jpeg;base64,' . base64_encode($fila['thumbnail']) . '"/>';
+                        } else {
+                        echo '<img class="card-img-top" src = "';
+                        echo base_url(); 
+                        echo 'img/proximamente.png"/>';    
+                        }
                         echo "<div class='card-block'>";
                         echo "<h4 class='card-title'>";
                         echo $fila['media_title'];

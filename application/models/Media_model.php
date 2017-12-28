@@ -8,6 +8,13 @@ class Media_model extends CI_model {
         return $insert_id;
     }
 
+    public function modify_media($media) {        
+        $this->db->where('media_id', $media['media_id']);
+        $this->db->update('media', $media);
+        $update_id = $media['media_id'];
+        return $update_id;
+    }
+
     public function detail_media($media_id) {
 
         $this->db->select('*');
@@ -22,13 +29,10 @@ class Media_model extends CI_model {
         }
     }
 
-    public function search_media($media) {        
+    public function search_media($media) {
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id');
-        if (strlen($media['media_address']) > 0) {
-            $this->db->or_where('media_address', $media['media_address']);
-        }
+        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         if (strlen($media['media_title']) > 0) {
             $this->db->or_where('media_title', $media['media_title']);
         }
@@ -99,6 +103,12 @@ class Media_model extends CI_model {
         $this->db->insert('thumbnails', $data);
     }
 
+    public function update_image($id, $imgdata) {      
+        $this->db->where('id', $id);        
+        $data['thumbnail'] = $imgdata;
+        $this->db->update('thumbnails', $data);        
+    }
+
     public function upload_video($id, $imgdata) {
         //$imgdata = file_get_contents($imgdata['full_path']);//get the content of the image using its path          
         $data['id'] = $id;
@@ -106,23 +116,30 @@ class Media_model extends CI_model {
         $this->db->insert('video', $data);
     }
 
+    public function update_video($id, $imgdata) {
+        $this->db->where('id', $id);        
+        $data['videodata'] = $imgdata;
+        $this->db->update('video', $data);  
+    }
+
     public function delete_media($id) {
         $this->db->where('media_id', $id);
-        $result = $this->db->delete('media');            
-        $result + $this->delete_video($id);
-        $result + $this->delete_thumbnails($id);
-        return $result;        
+        $this->db->delete('media');
+        $result = $this->db->affected_rows();
+        $this->delete_video($id);
+        $this->delete_thumbnails($id);
+        return $result;
     }
 
     public function delete_video($id) {
         $this->db->where('id', $id);
-        $result=$this->db->delete('video');
-        return $result; 
+        $result = $this->db->delete('video');
+        return $result;
     }
 
     public function delete_thumbnails($id) {
         $this->db->where('id', $id);
-        $result=$this->db->delete('thumbnails');
+        $result = $this->db->delete('thumbnails');
         return $result;
     }
 
