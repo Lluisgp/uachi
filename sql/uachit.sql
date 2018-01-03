@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2018 a las 11:37:33
+-- Tiempo de generación: 03-01-2018 a las 13:34:27
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -58,7 +58,7 @@ CREATE TABLE `thumbnails` (
 CREATE TABLE `trace` (
   `trace_id` int(11) NOT NULL,
   `media_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `trace_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

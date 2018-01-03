@@ -28,23 +28,23 @@ if(!$user_id){
 
 
         <tr>
-          <th colspan="2"><h4 class="text-center">User Info</h3></th>
+          <th colspan="2"><h4 class="text-center">Información de usuario:</h3></th>
 
         </tr>
           <tr>
-            <td>User Name</td>
+            <td>Nombre</td>
             <td><?php echo $this->session->userdata('user_name'); ?></td>
           </tr>
           <tr>
-            <td>User Email</td>
+            <td>Email</td>
             <td><?php echo $this->session->userdata('user_email');  ?></td>
           </tr>
           <tr>
-            <td>User Age</td>
+            <td>Edad</td>
             <td><?php echo $this->session->userdata('user_age');  ?></td>
           </tr>
           <tr>
-            <td>User Mobile</td>
+            <td>Teléfono</td>
             <td><?php echo $this->session->userdata('user_mobile');  ?></td>
           </tr>
       </table>
