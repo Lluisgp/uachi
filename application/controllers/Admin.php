@@ -43,7 +43,7 @@ class Admin extends CI_Controller {
 
     public function modify_media() {
         $id = $this->input->post('media_id');
-
+        $errors = "";
         if ($id) {
 
             $user_id = $this->session->userdata('user_id');
@@ -53,26 +53,35 @@ class Admin extends CI_Controller {
                 'media_id' => $id,
                 'media_title' => $this->input->post('media_title'),
                 'media_description' => $this->input->post('media_description'),
-                'media_tags' => $this->input->post('media_tags'),                
+                'media_tags' => $this->input->post('media_tags'),
                 'media_uploaded' => $user_id,
                 'media_date' => $pujat
             );
-            $insert_id=$this->media_model->modify_media($media);     
+            $insert_id = $this->media_model->modify_media($media);
 
             if (!empty($_FILES['thumbnail']['tmp_name'])) {
                 $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
-                $this->media_model->update_image($insert_id,$file_data);   
+                $this->media_model->update_image($insert_id, $file_data);
             }
 
             if (!empty($_FILES['video']['tmp_name'])) {
-                $file_data = file_get_contents($_FILES['video']['tmp_name']);
-                $this->media_model->update_video($insert_id,$file_data);   
+                $config['upload_path'] = 'videos';
+                $config['allowed_types'] = 'mp4';
+                $config['file_name'] = $id;
+                $config['overwrite'] = TRUE;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('video')) {
+                    $errors .= "Errades al pujar arxiu - ";
+                } else {
+                    $errors .= "Arxiu pujat amb èxit - ";
+                }
             }
 
             if ($insert_id > 0) {
-                $errors = "Registre modificat amb èxit";
+                $errors .= "Registre modificat amb èxit";
             } else {
-                $errors = "Cap registre modificat";
+                $errors .= "Cap registre modificat";
             }
         } else {
             $errors = "Ha de seleccionar primer un registre";
@@ -84,6 +93,7 @@ class Admin extends CI_Controller {
     public function add_media() {
         $user_id = $this->session->userdata('user_id');
         $pujat = date("Y-m-d H:i:s");
+        $errors = "";
 
         $media = array(
             'media_title' => $this->input->post('media_title'),
@@ -101,16 +111,23 @@ class Admin extends CI_Controller {
         }
 
         if (!empty($_FILES['video']['tmp_name'])) {
-            $file_data = file_get_contents($_FILES['video']['tmp_name']);
-            $this->media_model->upload_video($insert_id, $file_data);
+            $config['upload_path'] = 'videos';
+            $config['allowed_types'] = 'mp4';
+            $config['file_name'] = $insert_id;
+            $config['overwrite'] = TRUE;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('video')) {
+                $errors .= "Errades al pujar arxiu - ";
+            } else {
+                $errors .= "Arxiu pujat amb èxit - ";
+            }
         }
 
-        //$resultat=$this->media_model->search_media($media);
-
         if ($insert_id > 0) {
-            $errors = "Registre afegit amb èxit";
+            $errors .= "Registre afegit amb èxit";
         } else {
-            $errors = "Cap registre afegit";
+            $errors .= "Cap registre afegit";
         }
         $valors = array();
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
@@ -119,7 +136,6 @@ class Admin extends CI_Controller {
     public function admin_view() {
         $valors = array();
         $errors = array();
-        //$this->load->view("admin.php", array("data"=>$valors)); 
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
@@ -137,7 +153,6 @@ class Admin extends CI_Controller {
         } else {
             $valors = $this->media_model->search_last_media();
         }
-        //$this->load->view("admin.php", array("data"=>$valors));
         $errors = array();
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }

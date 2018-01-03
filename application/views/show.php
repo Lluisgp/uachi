@@ -105,7 +105,13 @@
                 echo '</div>';
                 echo '<div class="flex-row row">';
                 echo '<video style="margin: auto;" width="640" height="480" controls autoplay>';
-                echo '<source type="video/mp4" src="data:video/mp4;base64,' . base64_encode($data['videodata']) . '"/>';
+//                echo '<source type="video/mp4" src="data:video/mp4;base64,' . base64_encode($data['videodata']) . '"/>';
+//                echo '<source type="video/mp4" src="data:video/mp4,';
+                echo '<source type="video/mp4" src="';
+                echo base_url();
+                echo 'videos/';
+                echo $data['media_id'];
+                echo '.mp4"';
                 echo '</video>';
                 echo '</div>';
                 echo '<div class="flex-row row">';

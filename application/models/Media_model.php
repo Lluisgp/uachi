@@ -20,7 +20,7 @@ class Media_model extends CI_model {
         $this->db->select('*');
         $this->db->from('media');
         $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
-        $this->db->join('video', 'media.media_id = video.id', 'left');
+        //$this->db->join('video', 'media.media_id = video.id', 'left');
         $this->db->where('media_id', $media_id);
 
         if ($query = $this->db->get()) {
@@ -47,10 +47,10 @@ class Media_model extends CI_model {
         $res = $this->db->get();
 
         if ($res->num_rows() > 0) {
-            log_message("error", "search_media > 0");
+            log_message("debug", "Media_model>search_media > 0");
             return $res->result("array");
         }
-        log_message("error", "search_media 0 ");
+        log_message("debug", "Media_model>search_media 0 ");
         return array();
     }
 
@@ -64,10 +64,10 @@ class Media_model extends CI_model {
         $res = $this->db->get();
 
         if ($res->num_rows() > 0) {
-            log_message("error", "search_word_media_ > 0");
+            log_message("debug", "Media_model>search_word_media > 0");
             return $res->result("array");
         }
-        log_message("error", "search_word_media 0 ");
+        log_message("debug", "Media_model>search_word_media 0 ");
         return array();
     }
 
@@ -78,10 +78,10 @@ class Media_model extends CI_model {
         $res = $this->db->query($query);
 
         if ($res->num_rows() > 0) {
-            log_message("error", "last media > 0");
+            log_message("debug", "Media_model>search_last_media > 0");
             return $res->result("array");
         }
-        log_message("error", "last media ");
+        log_message("debug", "Media_model>search_last_media 0 ");
         return array();
     }
 
@@ -98,7 +98,6 @@ class Media_model extends CI_model {
     }
 
     public function upload_image($id, $imgdata) {
-        //$imgdata = file_get_contents($imgdata['full_path']);//get the content of the image using its path          
         $data['id'] = $id;
         $data['thumbnail'] = $imgdata;
         $this->db->insert('thumbnails', $data);
@@ -120,41 +119,21 @@ class Media_model extends CI_model {
         }
     }
 
-    public function upload_video($id, $imgdata) {
-        $data['id'] = $id;
-        $data['videodata'] = $imgdata;
-        $this->db->insert('video', $data);
-    }
-
-    public function update_video($id, $imgdata) {
-        $this->db->select('*');
-        $this->db->from('video');
-        $this->db->where('id', $id);
-
-        $res = $this->db->get();
-
-        if ($res->num_rows() > 0) {
-            $this->db->where('id', $id);
-            $data['videodata'] = $imgdata;
-            $this->db->update('video', $data);
-        } else {
-            $this->upload_video($id, $imgdata);
-        }
-    }
-
     public function delete_media($id) {
         $this->db->where('media_id', $id);
         $this->db->delete('media');
         $result = $this->db->affected_rows();
-        $this->delete_video($id);
+        //$this->delete_video($id);
         $this->delete_thumbnails($id);
         return $result;
     }
 
     public function delete_video($id) {
-        $this->db->where('id', $id);
-        $result = $this->db->delete('video');
-        return $result;
+
+        //TODO: Remake
+//        $this->db->where('id', $id);
+//        $result = $this->db->delete('video');
+//        return $result;
     }
 
     public function delete_thumbnails($id) {

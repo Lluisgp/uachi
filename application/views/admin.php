@@ -1,3 +1,13 @@
+<?php
+$user_id=$this->session->userdata('user_id');
+$user_admin=$this->session->userdata('user_admin');
+
+if(!$user_id || $user_admin!=1){
+
+  redirect('user/login_view');
+}
+
+ ?>
 <!DOCTYPE html>
 
 <html>
@@ -56,11 +66,11 @@
                             <p>TAGS</p>
                         </div>                   
                         <div class="col-sm-4">
-                            <p>VIDEO</p>
+                            <p>VIDEO max. 40 Mb</p>
                         </div>
 
                         <div class="col-sm-4">                                  
-                            <p>IMATGE</p>
+                            <p>IMATGE Amplada:250px Alçada:140px</p>
                         </div>
 
                     </div>

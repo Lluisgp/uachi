@@ -8,6 +8,8 @@ class Media extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('user_model');
         $this->load->model('media_model');
+        $this->load->model('trace_model');
+        $this->load->library('session');
     }
 
     public function index() {
@@ -26,8 +28,10 @@ class Media extends CI_Controller {
         $this->load->view("home.php", array("data" => $valors));
     }
 
-    public function media_show() {
-        $id = $this->input->get('media_id', TRUE);
+    public function media_show() {        
+        $user_id = $this->session->userdata('user_id');
+        $id = $this->input->get('media_id', TRUE);  
+        $this->trace_model->trace_media($id,$user_id);          
         $valors = "";
         $valors = $this->media_model->detail_media($id);        
         $this->load->view("show.php", array("data" => $valors));

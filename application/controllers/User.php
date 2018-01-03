@@ -56,6 +56,7 @@ class User extends CI_Controller {
             $this->session->set_userdata('user_name', $data['user_name']);
             $this->session->set_userdata('user_age', $data['user_age']);
             $this->session->set_userdata('user_mobile', $data['user_mobile']);
+            $this->session->set_userdata('user_admin', $data['user_admin']);
 
             $this->load->view('user_profile.php');
         } else {
