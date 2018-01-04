@@ -52,7 +52,18 @@
                         <input class="btn btn-danger" type="submit" value="Cerca" name="Cercabt"/></form>
                 </div> 
                 <div class="col-sm-4"style="text-align:right">
-                    <a href="<?php echo base_url('user'); ?>">
+                    <?php if($this->session->userdata('user_id')){ 
+                         echo '<a class="text-muted" style="vertical-align: top;" href="';
+                        echo base_url('user/user_profile');
+                        echo '">';
+                        echo $this->session->userdata('user_name');
+                        echo '</a>';
+                    } else {
+                        echo '<a class="text-muted" style="vertical-align: top;" href="';
+                        echo base_url('user');
+                        echo '">Iniciar sesión</a>';
+                    }
+                    ?><a href="<?php echo base_url('user'); ?>">
                     <svg class="" version="1.0" xmlns="http://www.w3.org/2000/svg"
                          width="40.000000pt" height="40.000000pt" viewBox="0 0 512.000000 512.000000"
 
