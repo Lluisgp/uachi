@@ -36,4 +36,4 @@ Install as an codeigniter application
 License
 *******
 
-AGPL3
+License (MIT)
