@@ -65,6 +65,27 @@ class User extends CI_Controller {
         }
     }
 
+    function login_user_facebook() {
+
+        $data = $this->user_model->login_user_facebook($this->input->post('user_email'));
+
+        if (!$data) {
+            $user = array(
+                'user_name' => $this->input->post('user_name'),
+                'user_email' => $this->input->post('user_email')
+            );
+            $this->user_model->register_user($user);
+            $data = $this->user_model->login_user_facebook($this->input->post('user_email'));
+        }
+        $this->session->set_userdata('user_id', $data['user_id']);
+        $this->session->set_userdata('user_email', $data['user_email']);
+        $this->session->set_userdata('user_name', $data['user_name']);
+        $this->session->set_userdata('user_age', $data['user_age']);
+        $this->session->set_userdata('user_mobile', $data['user_mobile']);
+        $this->session->set_userdata('user_admin', $data['user_admin']);
+        $this->load->view('user_profile.php');
+    }
+
     function user_profile() {
 
         $this->load->view('user_profile.php');

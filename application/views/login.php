@@ -50,7 +50,7 @@
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="login" name="login" >
 
                         </fieldset>
-                    </form>
+                    </form>   
                 <center><b>No estas registrat?</b> <br></b><a href="<?php echo base_url('user'); ?>">Fes-ho aqui!</a></center><!--for centered text-->
 
                 </div>

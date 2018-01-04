@@ -24,8 +24,20 @@ public function login_user($email,$pass){
   else{
     return false;
   }
+}
+public function login_user_facebook($email){
 
+  $this->db->select('*');
+  $this->db->from('user');
+  $this->db->where('user_email',$email);  
 
+  if($query=$this->db->get())
+  {
+      return $query->row_array();
+  }
+  else{
+    return false;
+  }
 }
 public function email_check($email){
 
