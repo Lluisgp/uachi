@@ -1,5 +1,5 @@
 ##############
-What is Uachi?
+What is Uachit?
 ##############
 
 Uachi is a crud application with user login for seek content in a database. 
@@ -31,12 +31,6 @@ Installation
 ************
 
 Install as an codeigniter application
-
-Important configuration for database, in my.ini file from your mysql database set:
-
-max_allowed_packet = 200M
-
-innodb_log_file_size = 256M
 
 *******
 License
