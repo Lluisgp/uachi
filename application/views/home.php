@@ -28,7 +28,7 @@
                 <?php
                 if ($data) {
                     foreach ($data as $fila) {
-                        echo "<div class='card' style='width: 25rem;margin-left: 20px; margin-bottom: 20px;'>";
+                        echo "<div class='card' style='width: 25rem;margin-left: auto;margin-right: auto; margin-bottom: 20px;'>";
                         echo "<a href='";
                         echo base_url('media/media_show');
                         echo "?media_id=";
