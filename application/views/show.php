@@ -36,15 +36,21 @@
                 echo '</h1>';
                 echo '</div>';
                 echo '<div class="flex-row row">';
-                echo '<video style="margin: auto;padding-top: 20px;" width="640" height="480" controls autoplay>';
-//                echo '<source type="video/mp4" src="data:video/mp4;base64,' . base64_encode($data['videodata']) . '"/>';
-//                echo '<source type="video/mp4" src="data:video/mp4,';
-                echo '<source type="video/mp4" src="';
+                echo '
+<video style="margin: auto;padding-top: 20px;" width="640" height="480" controls autoplay>
+	<source src="';
                 echo base_url();
-                echo 'videos/';
-                echo $data['media_id'];
-                echo '.mp4"';
-                echo '</video>';
+                echo 'play.php?stream=' . $data['media_id'] . '.mp4" type="video/mp4">
+
+	<object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="640" height="360">
+		<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
+		<param name="allowFullScreen" value="true">
+		<param name="wmode" value="transparent">
+		<param name="flashVars" value="config={\'playlist\':[{\'url\':\'./?stream=' . $data['media_id'] . '.mp4\',\'autoPlay\':true}]}">
+		<span>No video playback capabilities</span>
+	</object>
+</video>';
+                //common
                 echo '</div>';
                 echo '<div class="flex-row row">';
                 echo '<h3 style="color:white; margin: auto; padding-top: 20px;">';
