@@ -49,11 +49,11 @@
                         echo $fila['media_description'];
                         echo "</p>";
                         echo "</div>";
-                        echo "<ul class='list-group list-group-flush'>";
-                        echo "<li class='list-group-item'>";
-                        echo $fila['media_tags'];
-                        echo "</li>";
-                        echo "</ul>";
+//                        echo "<ul class='list-group list-group-flush'>";
+//                        echo "<li class='list-group-item'>";
+//                        echo $fila['media_tags'];
+//                        echo "</li>";
+//                        echo "</ul>";
                         echo "</div>";
                     }
                 }

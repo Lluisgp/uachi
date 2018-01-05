@@ -32,10 +32,10 @@ class Admin extends CI_Controller {
         $id = $this->input->post('media_id');
         $valors = array();
         $resultat = $this->media_model->delete_media($id);
-        if ($resultat > 0) {
-            $resultat = "S'ha esborrat amb èxit";
+        if ($resultat > 0) {            
+            $resultat = "Se ha borrado un registro con éxito";
         } else {
-            $resultat = "No s'ha esborrat cap registre";
+            $resultat = "No se ha borrado ningún registro";
         }
 
         $this->load->view("admin.php", array("data" => $valors, "error" => $resultat));
@@ -72,19 +72,19 @@ class Admin extends CI_Controller {
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload('video')) {
-                    $errors .= "Errades al pujar arxiu - ";
+                    $errors .= "Errores al subir el archivo - ";
                 } else {
-                    $errors .= "Arxiu pujat amb èxit - ";
+                    $errors .= "Archivo subido con éxito - ";
                 }
             }
 
             if ($insert_id > 0) {
-                $errors .= "Registre modificat amb èxit";
+                $errors .= "Registro modificado con éxito";
             } else {
-                $errors .= "Cap registre modificat";
+                $errors .= "Ningún registro modificado";
             }
         } else {
-            $errors = "Ha de seleccionar primer un registre";
+            $errors = "Primero debe seleccionar un registro";
         }
         $valors = array();
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
@@ -118,16 +118,16 @@ class Admin extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if (!$this->upload->do_upload('video')) {
-                $errors .= "Errades al pujar arxiu - ";
+                $errors .= "Errores al subir el archivo - ";
             } else {
-                $errors .= "Arxiu pujat amb èxit - ";
+                $errors .= "Archivo subido con éxito - ";
             }
         }
 
         if ($insert_id > 0) {
-            $errors .= "Registre afegit amb èxit";
+            $errors .= "Registro añadido con éxito";
         } else {
-            $errors .= "Cap registre afegit";
+            $errors .= "Ningún registro añadido";
         }
         $valors = array();
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
