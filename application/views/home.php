@@ -33,7 +33,7 @@
                         echo base_url('media/media_show');
                         echo "?media_id=";
                         echo $fila['media_id'];
-                        echo "'target='_blank' /a>";
+                        echo "'/a>";
                         if ($fila['thumbnail']){
                         echo '<img class="card-img-top" src="data:image/jpeg;base64,' . base64_encode($fila['thumbnail']) . '"/>';
                         } else {
