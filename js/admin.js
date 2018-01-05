@@ -2,18 +2,18 @@ $(document).ready(function () {
     //modify
     var table = $('#resultats').DataTable({
         "language": {
-            "lengthMenu": "Mostrant _MENU_ resultats per pàgina",
-            "zeroRecords": "Res per mostrar - ho sentim",
-            "info": "Mostrant pàgina _PAGE_ de _PAGES_",
-            "infoEmpty": "No n'hi ha resultats disponibles",
-            "infoFiltered": "(filtrat de _MAX_ registres)",
-            "loadingRecords": "Carregant...",
-            "processing": "Processant...",
-            "search": "Cerca:",
+            "lengthMenu": "Mostrando _MENU_ resultados por página",
+            "zeroRecords": "Sin resultados",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay resultados disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Busca:",
             "paginate": {
-                "first": "Primer",
-                "last": "Últim",
-                "next": "Següent",
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
                 "previous": "Anterior"
             },
         }
