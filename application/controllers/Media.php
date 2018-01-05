@@ -28,12 +28,12 @@ class Media extends CI_Controller {
         $this->load->view("home.php", array("data" => $valors));
     }
 
-    public function media_show() {        
+    public function media_show() {
         $user_id = $this->session->userdata('user_id');
-        $id = $this->input->get('media_id', TRUE);  
-        $this->trace_model->trace_media($id,$user_id);          
+        $id = $this->input->get('media_id', TRUE);
+        $this->trace_model->trace_media($id, $user_id);
         $valors = "";
-        $valors = $this->media_model->detail_media($id);        
+        $valors = $this->media_model->detail_media($id);
         $this->load->view("show.php", array("data" => $valors));
     }
 

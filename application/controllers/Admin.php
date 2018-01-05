@@ -32,7 +32,7 @@ class Admin extends CI_Controller {
         $id = $this->input->post('media_id');
         $valors = array();
         $resultat = $this->media_model->delete_media($id);
-        if ($resultat > 0) {            
+        if ($resultat > 0) {
             $resultat = "Se ha borrado un registro con éxito";
         } else {
             $resultat = "No se ha borrado ningún registro";
