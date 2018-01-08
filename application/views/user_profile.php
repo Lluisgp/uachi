@@ -60,12 +60,12 @@ if (!$user_id) {
                 </div>                
             </div>
             <div class="col-md-4" style="margin:auto;">
-                <a href="<?php echo base_url('user/user_logout'); ?>" >  <button type="button" class="btn-primary">Logout</button></a> <a href="<?php echo base_url('media/media_search'); ?>" >  <button type="button" class="btn-primary">Home</button></a> 
+                <a href="<?php echo base_url('user/user_logout'); ?>" >  <button type="button" class="btn-primary">Salir</button></a> <a href="<?php echo base_url('user/user_password'); ?>" >  <button type="button" class="btn-primary">Password</button></a><a href="<?php echo base_url('media/media_search'); ?>" >  <button type="button" class="btn-primary">Inicio</button></a> 
                 <?php
                 if ($user_admin == 1) {
                     echo '<a href="';
                     echo base_url('admin/admin_view');
-                    echo '" >  <button type="button" class="btn-primary">Admin</button></a>';
+                    echo '" >  <button type="button" class="btn-primary">Administrar</button></a>';
                 }
                 ?>
             </div>
