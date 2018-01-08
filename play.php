@@ -1,5 +1,4 @@
 <?php
-
 //stream it
 if (isset($_GET['stream'])) {
     include "./lib/streamer.php";

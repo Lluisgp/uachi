@@ -2,12 +2,22 @@
 
 class Media_model extends CI_model {
 
+    /**
+     * Insert a media on bdd
+     * @param type $media
+     * @return type
+     */
     public function register_media($media) {
         $this->db->insert('media', $media);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
 
+    /**
+     * Modify a media record
+     * @param type $media
+     * @return type
+     */
     public function modify_media($media) {
         $this->db->where('media_id', $media['media_id']);
         $this->db->update('media', $media);
@@ -15,12 +25,16 @@ class Media_model extends CI_model {
         return $update_id;
     }
 
+    /**
+     * From one id return a media record with thumbnail
+     * @param type $media_id
+     * @return boolean
+     */
     public function detail_media($media_id) {
 
         $this->db->select('*');
         $this->db->from('media');
         $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
-        //$this->db->join('video', 'media.media_id = video.id', 'left');
         $this->db->where('media_id', $media_id);
 
         if ($query = $this->db->get()) {
@@ -30,6 +44,11 @@ class Media_model extends CI_model {
         }
     }
 
+    /**
+     * Return media records and thumbnails with a media coincidence on title, tags or description
+     * @param type $media
+     * @return type
+     */
     public function search_media($media) {
         $this->db->select('*');
         $this->db->from('media');
@@ -54,6 +73,11 @@ class Media_model extends CI_model {
         return array();
     }
 
+    /**
+     * Return media records and thumbnails with a word coincidence on title or tags
+     * @param type $word
+     * @return type
+     */
     public function search_word_media($word) {
         $this->db->select('*');
         $this->db->from('media');
@@ -71,6 +95,10 @@ class Media_model extends CI_model {
         return array();
     }
 
+    /**
+     * Show the last 10 media records with thumbnail
+     * @return type
+     */
     public function search_last_media() {
 
         $query = "select * from media left join thumbnails on media.media_id=thumbnails.id order by media_date DESC limit 10";
@@ -85,6 +113,10 @@ class Media_model extends CI_model {
         return array();
     }
 
+    /**
+     * List all media 
+     * @return boolean
+     */
     public function list_media() {
 
         $this->db->select('*');
@@ -97,12 +129,22 @@ class Media_model extends CI_model {
         }
     }
 
+    /**
+     * Upload thumbnail image for a media
+     * @param type $id
+     * @param type $imgdata
+     */
     public function upload_image($id, $imgdata) {
         $data['id'] = $id;
         $data['thumbnail'] = $imgdata;
         $this->db->insert('thumbnails', $data);
     }
 
+    /**
+     * Update thumbnail image from a media
+     * @param type $id
+     * @param type $imgdata
+     */
     public function update_image($id, $imgdata) {
         $this->db->select('*');
         $this->db->from('thumbnails');
@@ -119,23 +161,24 @@ class Media_model extends CI_model {
         }
     }
 
+    /**
+     * Delete media resource
+     * @param type $id
+     * @return type
+     */
     public function delete_media($id) {
         $this->db->where('media_id', $id);
         $this->db->delete('media');
         $result = $this->db->affected_rows();
-        //$this->delete_video($id);
         $this->delete_thumbnails($id);
         return $result;
     }
 
-    public function delete_video($id) {
-
-        //TODO: Remake
-//        $this->db->where('id', $id);
-//        $result = $this->db->delete('video');
-//        return $result;
-    }
-
+    /**
+     * Delete thumbnails image
+     * @param type $id
+     * @return type
+     */
     public function delete_thumbnails($id) {
         $this->db->where('id', $id);
         $result = $this->db->delete('thumbnails');

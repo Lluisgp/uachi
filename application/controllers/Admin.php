@@ -12,6 +12,9 @@ class Admin extends CI_Controller {
         $this->load->helper('form');
     }
 
+    /**
+     * Distribute all calls to the controller to diferent functions
+     */
     public function distribution() {
         if (isset($_POST["filter"])) {
             $this->admin_filter();
@@ -27,18 +30,53 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function delete_media() {
-
-        $id = $this->input->post('media_id');
+    public function admin_view() {
         $valors = array();
-        $resultat = $this->media_model->delete_media($id);
-        if ($resultat > 0) {
-            $resultat = "Se ha borrado un registro con éxito";
-        } else {
-            $resultat = "No se ha borrado ningún registro";
+        $errors = array();
+        $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
+    }
+
+    public function add_media() {
+        $user_id = $this->session->userdata('user_id');
+        $pujat = date("Y-m-d H:i:s");
+        $errors = "";
+
+        $media = array(
+            'media_title' => $this->input->post('media_title'),
+            'media_description' => $this->input->post('media_description'),
+            'media_tags' => $this->input->post('media_tags'),
+            'media_address' => $this->input->post('media_address'),
+            'media_uploaded' => $user_id,
+            'media_date' => $pujat
+        );
+        $insert_id = $this->media_model->register_media($media);
+
+        if (!empty($_FILES['thumbnail']['tmp_name'])) {
+            $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
+            $this->media_model->upload_image($insert_id, $file_data);
         }
 
-        $this->load->view("admin.php", array("data" => $valors, "error" => $resultat));
+        if (!empty($_FILES['video']['tmp_name'])) {
+            $config['upload_path'] = 'videos';
+            $config['allowed_types'] = 'mp4';
+            $config['file_name'] = $insert_id;
+            $config['overwrite'] = TRUE;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('video')) {
+                $errors .= "Errores al subir el archivo - ";
+            } else {
+                $errors .= "Archivo subido con éxito - ";
+            }
+        }
+
+        if ($insert_id > 0) {
+            $errors .= "Registro añadido con éxito";
+        } else {
+            $errors .= "Ningún registro añadido";
+        }
+        $valors = array();
+        $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
     public function modify_media() {
@@ -90,53 +128,22 @@ class Admin extends CI_Controller {
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
-    public function add_media() {
-        $user_id = $this->session->userdata('user_id');
-        $pujat = date("Y-m-d H:i:s");
-        $errors = "";
+    public function delete_media() {
 
-        $media = array(
-            'media_title' => $this->input->post('media_title'),
-            'media_description' => $this->input->post('media_description'),
-            'media_tags' => $this->input->post('media_tags'),
-            'media_address' => $this->input->post('media_address'),
-            'media_uploaded' => $user_id,
-            'media_date' => $pujat
-        );
-        $insert_id = $this->media_model->register_media($media);
-
-        if (!empty($_FILES['thumbnail']['tmp_name'])) {
-            $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
-            $this->media_model->upload_image($insert_id, $file_data);
-        }
-
-        if (!empty($_FILES['video']['tmp_name'])) {
-            $config['upload_path'] = 'videos';
-            $config['allowed_types'] = 'mp4';
-            $config['file_name'] = $insert_id;
-            $config['overwrite'] = TRUE;
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            if (!$this->upload->do_upload('video')) {
-                $errors .= "Errores al subir el archivo - ";
-            } else {
-                $errors .= "Archivo subido con éxito - ";
+        $id = $this->input->post('media_id');
+        $valors = array();
+        $resultat = $this->media_model->delete_media($id);
+        if ($resultat > 0) {
+            $filename = 'videos/' . $id . '.mp4';
+            if (file_exists($filename)) {
+                unlink($filename);
             }
-        }
-
-        if ($insert_id > 0) {
-            $errors .= "Registro añadido con éxito";
+            $resultat = "Se ha borrado un registro con éxito";
         } else {
-            $errors .= "Ningún registro añadido";
+            $resultat = "No se ha borrado ningún registro";
         }
-        $valors = array();
-        $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
-    }
 
-    public function admin_view() {
-        $valors = array();
-        $errors = array();
-        $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
+        $this->load->view("admin.php", array("data" => $valors, "error" => $resultat));
     }
 
     public function admin_filter() {

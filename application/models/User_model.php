@@ -2,12 +2,22 @@
 
 class User_model extends CI_model {
 
+    /**
+     * Register an user
+     * @param type $user
+     */
     public function register_user($user) {
 
 
         $this->db->insert('user', $user);
     }
 
+    /**
+     * Modify the password of one user
+     * @param type $password
+     * @param type $user_id
+     * @return type
+     */
     public function modify_user_password($password, $user_id) {
         $user = array(
             'user_password' => md5($password),
@@ -17,6 +27,12 @@ class User_model extends CI_model {
         return $this->db->update('user', $user);
     }
 
+    /**
+     * Login user
+     * @param type $email
+     * @param type $pass
+     * @return boolean
+     */
     public function login_user($email, $pass) {
 
         $this->db->select('*');
@@ -31,6 +47,11 @@ class User_model extends CI_model {
         }
     }
 
+    /**
+     * Login a user with Facebook account
+     * @param type $email
+     * @return boolean
+     */
     public function login_user_facebook($email) {
 
         $this->db->select('*');
@@ -44,6 +65,11 @@ class User_model extends CI_model {
         }
     }
 
+    /**
+     * Generate and persist a token for recovery password
+     * @param type $user_id
+     * @return string
+     */
     public function user_token($user_id) {
         //Generate token
         $length = 20;
@@ -61,6 +87,11 @@ class User_model extends CI_model {
         return $randomString;
     }
 
+    /**
+     * Check a email on bdd
+     * @param type $email
+     * @return boolean
+     */
     public function email_check($email) {
 
         $this->db->select('*');
@@ -75,6 +106,13 @@ class User_model extends CI_model {
         }
     }
 
+    /**
+     * Validate the token of one user to change they password
+     * @param type $email
+     * @param type $password
+     * @param type $tokenPost
+     * @return boolean
+     */
     public function user_recovery($email, $password, $tokenPost) {
 
         $this->db->select('*');

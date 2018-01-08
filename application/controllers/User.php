@@ -10,10 +10,16 @@ class User extends CI_Controller {
         $this->load->library('session');
     }
 
+    /**
+     * Load register view
+     */
     public function index() {
         $this->load->view("register.php");
     }
 
+    /**
+     * Register user
+     */
     public function register_user() {
 
         $user = array(
@@ -38,12 +44,18 @@ class User extends CI_Controller {
         }
     }
 
+    /**
+     * Login view
+     */
     public function login_view() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
         $this->load->view("login.php");
     }
 
+    /**
+     * Login user
+     */
     function login_user() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -68,6 +80,9 @@ class User extends CI_Controller {
         }
     }
 
+    /**
+     * Login user with Facebook api
+     */
     function login_user_facebook() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -90,11 +105,17 @@ class User extends CI_Controller {
         $this->load->view('user_profile.php');
     }
 
+    /**
+     * Load user profile
+     */
     function user_profile() {
 
         $this->load->view('user_profile.php');
     }
 
+    /**
+     * Generate a token a send by mail to change the user password
+     */
     function recovery() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -136,6 +157,10 @@ class User extends CI_Controller {
         $this->load->view("login.php");
     }
 
+    /**
+     * Centralice all password changes, by token by user instruction 
+     * @return type
+     */
     function setpassword() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -177,10 +202,16 @@ class User extends CI_Controller {
         $this->load->view("login.php");
     }
 
+    /**
+     * Redirect user to change they password
+     */
     public function user_password() {
         $this->load->view("recovery.php", array("data" => "login"));
     }
 
+    /**
+     * Logout
+     */
     public function user_logout() {
 
         $this->session->sess_destroy();
