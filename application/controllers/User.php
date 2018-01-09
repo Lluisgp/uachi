@@ -14,6 +14,8 @@ class User extends CI_Controller {
      * Load register view
      */
     public function index() {
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $this->load->view("register.php");
     }
 
@@ -21,7 +23,8 @@ class User extends CI_Controller {
      * Register user
      */
     public function register_user() {
-
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $user = array(
             'user_name' => $this->input->post('user_name'),
             'user_email' => $this->input->post('user_email'),
@@ -29,18 +32,16 @@ class User extends CI_Controller {
             'user_age' => $this->input->post('user_age'),
             'user_mobile' => $this->input->post('user_mobile')
         );
-        //print_r($user);
 
         $email_check = $this->user_model->email_check($user['user_email']);
 
-        if ($email_check) {
+        if ($email_check && $user['user_name'] && $user['user_email'] && $user['user_password']) {
             $this->user_model->register_user($user);
             $this->session->set_flashdata('success_msg', 'Registrado correctamente.Ahora puede entrar en su cuenta.');
             redirect('user/login_view');
         } else {
-
-            $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error. Vuelva a probar.');
-            redirect('user');
+            $this->session->set_flashdata('error_msg', 'Por favor, revise los datos introducidos.');
+            $this->load->view("register.php");
         }
     }
 
@@ -66,13 +67,7 @@ class User extends CI_Controller {
 
         $data = $this->user_model->login_user($user_login['user_email'], $user_login['user_password']);
         if ($data) {
-            $this->session->set_userdata('user_id', $data['user_id']);
-            $this->session->set_userdata('user_email', $data['user_email']);
-            $this->session->set_userdata('user_name', $data['user_name']);
-            $this->session->set_userdata('user_age', $data['user_age']);
-            $this->session->set_userdata('user_mobile', $data['user_mobile']);
-            $this->session->set_userdata('user_admin', $data['user_admin']);
-
+            $this->user_set_session($data);
             $this->load->view('user_profile.php');
         } else {
             $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error. Vuelva a probar.');
@@ -96,20 +91,61 @@ class User extends CI_Controller {
             $this->user_model->register_user($user);
             $data = $this->user_model->login_user_facebook($this->input->post('user_email'));
         }
-        $this->session->set_userdata('user_id', $data['user_id']);
-        $this->session->set_userdata('user_email', $data['user_email']);
-        $this->session->set_userdata('user_name', $data['user_name']);
-        $this->session->set_userdata('user_age', $data['user_age']);
-        $this->session->set_userdata('user_mobile', $data['user_mobile']);
-        $this->session->set_userdata('user_admin', $data['user_admin']);
+        $this->user_set_session($data);
         $this->load->view('user_profile.php');
+    }
+
+    /**
+     * Update session userdata
+     * @param type $user
+     */
+    function user_set_session($user) {
+        $this->session->set_userdata('user_id', $user['user_id']);
+        $this->session->set_userdata('user_email', $user['user_email']);
+        $this->session->set_userdata('user_name', $user['user_name']);
+        $this->session->set_userdata('user_age', $user['user_age']);
+        $this->session->set_userdata('user_mobile', $user['user_mobile']);
+        $this->session->set_userdata('user_admin', $user['user_admin']);
     }
 
     /**
      * Load user profile
      */
     function user_profile() {
+        $this->load->view('user_profile.php');
+    }
 
+    /**
+     * Modify current user
+     */
+    function user_modify() {
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
+        $user = array(
+            'user_id' => $this->session->userdata('user_id'),
+            'user_name' => $this->input->post('user_name'),
+            'user_email' => $this->input->post('user_email'),
+            'user_age' => $this->input->post('user_age'),
+            'user_mobile' => $this->input->post('user_mobile'),
+            'user_admin' => $this->session->userdata('user_admin')
+        );
+        $email = $user['user_email'];
+        $sesion_mail = $this->session->userdata('user_email');
+
+        if ($email != $sesion_mail) {
+            if (!$this->user_model->email_check($email)) {
+                $this->session->set_flashdata('error_msg', 'El correo que intenta utilizar ya esta en uso.');
+                $this->load->view('user_profile.php');
+                return;
+            }
+        }
+        $result = $this->user_model->modify_user($user);
+        if ($result) {
+            $this->user_set_session($user);
+            $this->session->set_flashdata('success_msg', 'Cambios actualizados.');
+        } else {
+            $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error');
+        }
         $this->load->view('user_profile.php');
     }
 
@@ -174,6 +210,7 @@ class User extends CI_Controller {
             if ($this->session->userdata('user_email') == $email) {
                 $modify = $this->user_model->modify_user_password($password, $this->session->userdata('user_id'));
                 if ($modify) {
+                    $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
                     $this->load->view('user_profile.php');
                     return;
                 }
@@ -190,6 +227,7 @@ class User extends CI_Controller {
                     $this->session->set_userdata('user_mobile', $data['user_mobile']);
                     $this->session->set_userdata('user_admin', $data['user_admin']);
 
+                    $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
                     $this->load->view('user_profile.php');
                     return;
                 }
@@ -206,6 +244,8 @@ class User extends CI_Controller {
      * Redirect user to change they password
      */
     public function user_password() {
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $this->load->view("recovery.php", array("data" => "login"));
     }
 
@@ -213,7 +253,8 @@ class User extends CI_Controller {
      * Logout
      */
     public function user_logout() {
-
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $this->session->sess_destroy();
         redirect('user/login_view', 'refresh');
     }

@@ -17,6 +17,8 @@ class Media extends CI_Controller {
     }
 
     public function media_search() {
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $cerca = $this->input->post('cerca');
         $valors = "";
 
@@ -29,6 +31,8 @@ class Media extends CI_Controller {
     }
 
     public function media_show() {
+        $this->session->unset_userdata('success_msg');
+        $this->session->unset_userdata('error_msg');
         $user_id = $this->session->userdata('user_id');
         $id = $this->input->get('media_id', TRUE);
         $this->trace_model->trace_media($id, $user_id);

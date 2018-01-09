@@ -1,4 +1,5 @@
-$(document).ready(function () {
+$(document).ready(function () {    
+    document.documentElement.style.overflowX = 'hidden';
     //modify
     var table = $('#resultats').DataTable({
         "language": {

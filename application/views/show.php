@@ -27,7 +27,6 @@
     <body>
         <?php $this->view('header'); ?>         
         <div class="container-fluid">
-
             <?php
             if ($data) {
                 echo '<div class="flex-row row">';
@@ -59,7 +58,6 @@
                 echo '</div>';
             }
             ?>
-
         </div>
     </body>
 </html>

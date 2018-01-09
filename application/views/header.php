@@ -22,7 +22,7 @@
                           -5 18 -4 10 6 12 44 10 l49 -4 -29 -61z"/>
                 </g>
             </svg>
-<?php echo "</a>"; ?>
+            <?php echo "</a>"; ?>
             <p>&nbsp;&nbsp;</p> 
             <input type="text" class="center-block form-control input-lg cercar" title="Cercar" name="cerca" placeholder="Introduce el texto que deseas buscar..."/>
             <p>&nbsp;&nbsp;</p> 
@@ -83,4 +83,23 @@
 </div>     
 </br>
 </div> 
+<?php
+$success_msg = $this->session->flashdata('success_msg');
+$error_msg = $this->session->flashdata('error_msg');
+
+if ($success_msg) {
+    ?>
+    <div style="text-align: center;" class="alert alert-success">
+        <?php echo $success_msg; ?>
+    </div>
+    <?php
+}
+if ($error_msg) {
+    ?>
+    <div style="text-align: center;" class="alert alert-danger">
+        <?php echo $error_msg; ?>
+    </div>
+    <?php
+}
+?>
 

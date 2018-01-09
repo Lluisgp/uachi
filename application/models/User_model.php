@@ -28,6 +28,17 @@ class User_model extends CI_model {
     }
 
     /**
+     * Modify user
+     * @param type $user
+     * @return type
+     */
+    public function modify_user($user) {
+        $this->db->where('user_id', $user['user_id']);
+        $this->db->update('user', $user);
+        return $user['user_id'];
+    }
+
+    /**
      * Login user
      * @param type $email
      * @param type $pass
