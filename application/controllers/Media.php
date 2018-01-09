@@ -45,9 +45,12 @@ class Media extends CI_Controller {
         $user_id = $this->session->userdata('user_id');
         $id = $this->input->get('media_id', TRUE);
         $this->trace_model->trace_media($id, $user_id);
-        $valors = "";
-        $valors .= $this->media_model->detail_media($id);
-        $this->load->view("show.php", array("data" => $valors));
+        $valors = $this->media_model->detail_media($id);
+        if ($valors) {
+            $this->load->view("show.php", array("data" => $valors));
+        } else {
+            $this->media_search();
+        }
     }
 
 }

@@ -16,7 +16,7 @@
             }
         </style>
         <script type="text/javascript">
-            function recupera(event)
+            function recupera()
             {
                 var mail = $('input[name=user_email]').val();
                 if (isEmail(mail)) {
@@ -44,8 +44,6 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Login</h3>
                         </div>
-
-
                         <div class="panel-body">
                             <form role="form" method="post" action="<?php echo base_url('user/login_user'); ?>">
                                 <fieldset>
@@ -62,7 +60,7 @@
                                 </fieldset>
                             </form>
                             <center><b>¿No estas registrado?</b> <br></b><a href="<?php echo base_url('user'); ?>">Hazlo aquí!</a></center>                                
-                            <center><b>¿No recuerdas la contraseña?</b> <br></b><a href="#" onclick="recupera(this);">Recupérala aquí!</a></center>                             
+                            <center><b>¿No recuerdas la contraseña?</b> <br></b><a href="#" onclick="recupera();">Recupérala aquí!</a></center>                             
                         </div>
                     </div>
                 </div>

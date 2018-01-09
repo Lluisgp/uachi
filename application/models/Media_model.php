@@ -36,9 +36,10 @@ class Media_model extends CI_model {
         $this->db->from('media');
         $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         $this->db->where('media_id', $media_id);
-
-        if ($query = $this->db->get()) {
-            return $query->row_array();
+        $query = $this->db->get();
+        $row = $query->row_array();
+        if (isset($row)) {
+            return $row;
         } else {
             return false;
         }
@@ -121,9 +122,10 @@ class Media_model extends CI_model {
 
         $this->db->select('*');
         $this->db->from('media');
-
-        if ($query = $this->db->get()) {
-            return $query->row_array();
+        $query = $this->db->get();
+        $row = $query->row_array();
+        if (isset($row)) {
+            return $row;
         } else {
             return false;
         }

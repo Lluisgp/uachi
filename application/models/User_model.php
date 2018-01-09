@@ -48,9 +48,10 @@ class User_model extends CI_model {
         $this->db->from('user');
         $this->db->where('user_email', $email);
         $this->db->where('user_password', $pass);
-
-        if ($query = $this->db->get()) {
-            return $query->row_array();
+        $query = $this->db->get();
+        $row = $query->row_array();
+        if (isset($row)) {
+            return $row;
         } else {
             return false;
         }
