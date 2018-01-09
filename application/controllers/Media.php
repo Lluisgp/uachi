@@ -12,10 +12,16 @@ class Media extends CI_Controller {
         $this->load->library('session');
     }
 
+    /**
+     * Default call show last ten results
+     */
     public function index() {
         $this->media_search();
     }
 
+    /**
+     * Search media records if have a word filter the related records else the last 10 records
+     */
     public function media_search() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -30,6 +36,9 @@ class Media extends CI_Controller {
         $this->load->view("home.php", array("data" => $valors));
     }
 
+    /**
+     * Show a media record
+     */
     public function media_show() {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
@@ -37,7 +46,7 @@ class Media extends CI_Controller {
         $id = $this->input->get('media_id', TRUE);
         $this->trace_model->trace_media($id, $user_id);
         $valors = "";
-        $valors = $this->media_model->detail_media($id);
+        $valors .= $this->media_model->detail_media($id);
         $this->load->view("show.php", array("data" => $valors));
     }
 

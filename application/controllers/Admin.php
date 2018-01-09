@@ -30,12 +30,18 @@ class Admin extends CI_Controller {
         }
     }
 
+    /**
+     * Load admin view
+     */
     public function admin_view() {
         $valors = array();
         $errors = array();
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
+    /**
+     * Add media, thumbnail and video if exists
+     */
     public function add_media() {
         $user_id = $this->session->userdata('user_id');
         $pujat = date("Y-m-d H:i:s");
@@ -51,11 +57,13 @@ class Admin extends CI_Controller {
         );
         $insert_id = $this->media_model->register_media($media);
 
+        //upload thumbnail to bdd
         if (!empty($_FILES['thumbnail']['tmp_name'])) {
             $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
             $this->media_model->upload_image($insert_id, $file_data);
         }
 
+        //Write a video on a file
         if (!empty($_FILES['video']['tmp_name'])) {
             $config['upload_path'] = 'videos';
             $config['allowed_types'] = 'mp4';
@@ -79,6 +87,9 @@ class Admin extends CI_Controller {
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
+    /**
+     * Modify a media record
+     */
     public function modify_media() {
         $id = $this->input->post('media_id');
         $errors = "";
@@ -128,8 +139,10 @@ class Admin extends CI_Controller {
         $this->load->view("admin.php", array("data" => $valors, "error" => $errors));
     }
 
+    /**
+     * Delete a media record
+     */
     public function delete_media() {
-
         $id = $this->input->post('media_id');
         $valors = array();
         $resultat = $this->media_model->delete_media($id);
@@ -146,6 +159,9 @@ class Admin extends CI_Controller {
         $this->load->view("admin.php", array("data" => $valors, "error" => $resultat));
     }
 
+    /**
+     * Filter media records
+     */
     public function admin_filter() {
         $media = array(
             'media_title' => $this->input->post('media_title'),

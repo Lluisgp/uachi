@@ -144,7 +144,7 @@ class User extends CI_Controller {
             $this->user_set_session($user);
             $this->session->set_flashdata('success_msg', 'Cambios actualizados.');
         } else {
-            $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error');
+            $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error.');
         }
         $this->load->view('user_profile.php');
     }
@@ -206,35 +206,30 @@ class User extends CI_Controller {
         $password = $this->input->post('user_password');
         $password2 = $this->input->post('user_password2');
         $tokenPost = $this->input->post('tokenPost');
-        if ($tokenPost == 'login') {
-            if ($this->session->userdata('user_email') == $email) {
-                $modify = $this->user_model->modify_user_password($password, $this->session->userdata('user_id'));
-                if ($modify) {
-                    $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
-                    $this->load->view('user_profile.php');
-                    return;
-                }
+        //Logged user try change your password, conditions: tokePost value is login, and input mail equals session mail 
+        if ($tokenPost == 'login' && $this->session->userdata('user_email') == $email) {
+            $modify = $this->user_model->modify_user_password($password, $this->session->userdata('user_id'));
+            if ($modify) {
+                $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
+                $this->load->view('user_profile.php');
+                return;
             }
-        } elseif (isset($email) && isset($password) && isset($password2) && isset($tokenPost)) {
-            if ($password == $password2 && strlen($tokenPost) == 20) {
-                $data = $this->user_model->user_recovery($email, $password, $tokenPost);
-
-                if ($data) {
-                    $this->session->set_userdata('user_id', $data['user_id']);
-                    $this->session->set_userdata('user_email', $data['user_email']);
-                    $this->session->set_userdata('user_name', $data['user_name']);
-                    $this->session->set_userdata('user_age', $data['user_age']);
-                    $this->session->set_userdata('user_mobile', $data['user_mobile']);
-                    $this->session->set_userdata('user_admin', $data['user_admin']);
-
-                    $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
-                    $this->load->view('user_profile.php');
-                    return;
-                }
-            }
-        } elseif ($token) {
+        }
+        //Is user have the correct url address with a correct token this is redirected to recovery view (first step recovery password)
+        elseif ($token) {
             $this->load->view("recovery.php", array("data" => $token));
             return;
+        }
+        //Is set email, password, re type password and token and two password equals and token lenght are 20, this case is produced by a call from 
+        //recovery view (second step of recovery password) 
+        elseif (isset($email) && isset($password) && isset($password2) && isset($tokenPost) && $password == $password2 && strlen($tokenPost) == 20) {
+            $data = $this->user_model->user_recovery($email, $password, $tokenPost);
+            if ($data) {
+                $this->user_set_session($data);
+                $this->session->set_flashdata('success_msg', 'Password cambiado con éxito.');
+                $this->load->view('user_profile.php');
+                return;
+            }
         }
         $this->session->set_flashdata('error_msg', 'Ha ocurrido algún error. Vuelva a probar.');
         $this->load->view("login.php");

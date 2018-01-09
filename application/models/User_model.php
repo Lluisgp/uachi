@@ -7,8 +7,6 @@ class User_model extends CI_model {
      * @param type $user
      */
     public function register_user($user) {
-
-
         $this->db->insert('user', $user);
     }
 
