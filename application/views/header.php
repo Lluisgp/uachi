@@ -87,14 +87,14 @@
 $success_msg = $this->session->flashdata('success_msg');
 $error_msg = $this->session->flashdata('error_msg');
 
-if ($success_msg) {
+if (isset($success_msg)) {
     ?>
     <div style="text-align: center;" class="alert alert-success">
         <?php echo $success_msg; ?>
     </div>
     <?php
 }
-if ($error_msg) {
+if (isset($error_msg)) {
     ?>
     <div style="text-align: center;" class="alert alert-danger">
         <?php echo $error_msg; ?>
