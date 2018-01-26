@@ -23,6 +23,16 @@
                 background-color: black;
             }
         </style>
+        <script type='text/javascript'>
+            $(function () {
+                $("a.reply float-right").click(function () {
+                    alert("hola");
+                    var id = $(this).attr("id");
+                    $("#parent_id").attr("value", id);
+                    $("#name").focus();
+                });
+            });
+        </script>
     </head>
     <body>
         <?php $this->view('header'); ?>         
@@ -55,9 +65,30 @@
                 echo '<h3 style="color:white; margin: auto; padding-top: 20px;">';
                 echo $data['media_description'];
                 echo '</h3>';
-                echo '</div>';
-            }
-            ?>
+                ?>                  
+            </div>
+
+            <div class="flex-row row">
+
+                <div class="col-md-4 col-md-offset-4" style="margin:auto;">
+                    </br>
+                    <form id="comment_form" action="<?= base_url() ?>media/add_comment" method='post'>                  
+                        <div class="form-group">                
+                            <textarea class="form-control" name="comment_body" value="" placeholder="Comentario" id='comment'></textarea>
+                        </div>
+
+                        <input type='hidden' name='parent_id' value="0" id='parent_id' />
+                        <input type='hidden' name='ne_id' value="<?= $data['media_id'] ?>" id='parent_id'/>
+
+                        <div class="float-right" id='submit_button'>
+                            <input class="btn btn-success" type="submit" name="submit" value="Añadir comentario"/>
+                        </div>
+                    </form>  
+                    &nbsp;</br>  &nbsp;</br> 
+                    <?php echo $comments ?>
+                </div>
+            <?php } ?>
         </div>
+
     </body>
 </html>
