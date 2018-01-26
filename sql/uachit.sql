@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2018 a las 13:34:27
+-- Tiempo de generación: 26-01-2018 a las 19:26:01
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.9
 
@@ -21,6 +21,23 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `uachit`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comment`
+--
+
+CREATE TABLE `comment` (
+  `comment_id` int(11) NOT NULL,
+  `ne_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `comment_name` varchar(100) NOT NULL,
+  `comment_email` varchar(100) NOT NULL,
+  `comment_body` text NOT NULL,
+  `comment_state` tinyint(1) NOT NULL DEFAULT '0',
+  `comment_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -75,19 +92,19 @@ CREATE TABLE `user` (
   `user_password` varchar(50) NOT NULL,
   `user_age` int(11) NOT NULL,
   `user_mobile` int(11) NOT NULL,
-  `user_admin` tinyint(1) NOT NULL DEFAULT '0'
+  `user_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `user_recovery` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `user`
---
-
-INSERT INTO `user` (`user_id`, `user_name`, `user_email`, `user_password`, `user_age`, `user_mobile`, `user_admin`) VALUES
-(5, 'Lluis', 'lgonzalez@opentrends.net', 'e0c8865b726b48a8ae6563930dff36ba', 39, 625742822, 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- Indices de la tabla `media`
@@ -108,7 +125,8 @@ ALTER TABLE `thumbnails`
 --
 ALTER TABLE `trace`
   ADD PRIMARY KEY (`trace_id`),
-  ADD UNIQUE KEY `trace_id` (`trace_id`);
+  ADD UNIQUE KEY `trace_id` (`trace_id`),
+  ADD KEY `User` (`user_id`);
 
 --
 -- Indices de la tabla `user`
@@ -119,6 +137,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `media`
@@ -136,7 +160,7 @@ ALTER TABLE `trace`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -147,6 +171,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `media`
   ADD CONSTRAINT `media_ibfk_1` FOREIGN KEY (`media_uploaded`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `trace`
+--
+ALTER TABLE `trace`
+  ADD CONSTRAINT `User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
