@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=0.6; user-scalable=0;">
         <title>Uachit</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -70,7 +71,7 @@
 
             <div class="flex-row row">
 
-                <div class="col-md-4 col-md-offset-4" style="margin:auto;">
+                <div class="col-xs-12 col-md-5" style="margin:auto;">
                     </br>
                     <form id="comment_form" action="<?= base_url() ?>media/add_comment" method='post'>                  
                         <div class="form-group">                
