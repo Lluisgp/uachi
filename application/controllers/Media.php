@@ -70,18 +70,18 @@ class Media extends CI_Controller {
             "comment_email" => $this->input->post('user_email'),
             "comment_name" => $this->session->userdata('user_name'),
             "comment_email" => $this->session->userdata('user_email'),
-            "comment_body" => $this->input->post('comment_body'),
+            "comment_body" => htmlspecialchars($this->input->post('comment_body')),
             "comment_created" => time()
-        );
-        $this->form_validation->set_rules('comment_body', 'comment_body', 'required|trim|htmlspecialchars');
+        );        
+         $this->form_validation->set_rules('comment_body', 'comment_body', 'required|trim|htmlspecialchars');
         if ($this->form_validation->run() == FALSE || !$this->session->userdata('user_id') > 0) {
             // if not valid load comments
-            $this->session->set_flashdata('error_msg', "Debe estar registrado y haberse identificado para poder hacer comentarios");
+            $this->session->set_flashdata('error_msg', "Revise el texto introducido y compruebe que esta registrado y se ha identificado.");
             redirect("media/media_show?media_id=" . $this->input->post('ne_id'));
         } else {
             //if valid send comment to admin to tak approve
             $this->comment_model->add_new_comment($comment);
-            $this->session->set_flashdata('success_msg', 'Tu comentario esta esperando la moderación.');
+            $this->session->set_flashdata('success_msg', 'Comentario publicado con éxito.');
             //redirect("news/show_one/$ne_id");
             redirect("media/media_show?media_id=" . $this->input->post('ne_id'));
         }
@@ -129,7 +129,7 @@ class Media extends CI_Controller {
                 $html .= " <li class='comment_box'>                    
             <div style='color:white;' class='comment-body'>" . $re['comment_body'] . "</div>
             <div style='color:white;' class='timestamp'>  " . $re['comment_name'] . "  " . date("j/m/Y", $re['comment_created']) . "
-            <a style='color:white;'  href='#comment_form' class='reply float-right' id='" . $re['comment_id'] . "'>Contestar</a></div></br>";
+            <a style='color:white;'  href='#' class='reply float-right' id='" . $re['comment_id'] . "'>Contestar</a></div></br>";
                 $html .= $this->in_parent($re['comment_id'], $ne_id, $store_all_id);
                 $html .= "</li>";
             }

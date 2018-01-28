@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=0.6; user-scalable=0;">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.6, user-scalable=0">
         <title>Uachit</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -25,13 +25,14 @@
             }
         </style>
         <script type='text/javascript'>
-            $(function () {
-                $("a.reply float-right").click(function () {
-                    alert("hola");
+            $(document).ready(function () {
+                $(".reply").on("click", function () {
+                    $("#lblresp").show("slow");
+                    $(".alert").hide();
                     var id = $(this).attr("id");
                     $("#parent_id").attr("value", id);
-                    $("#name").focus();
-                });
+                    $("#comment").focus();
+                })
             });
         </script>
     </head>
@@ -74,8 +75,9 @@
                 <div class="col-xs-12 col-md-5" style="margin:auto;">
                     </br>
                     <form id="comment_form" action="<?= base_url() ?>media/add_comment" method='post'>                  
-                        <div class="form-group">                
-                            <textarea class="form-control" name="comment_body" value="" placeholder="Comentario" id='comment'></textarea>
+                        <div class="form-group">  
+                            <span id="lblresp" style="display:none;" class="badge">Respondiendo</span>
+                            <textarea autofocus class="form-control" name="comment_body" value="" placeholder="Comentario" id='comment'></textarea>
                         </div>
 
                         <input type='hidden' name='parent_id' value="0" id='parent_id' />
