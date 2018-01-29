@@ -7,7 +7,7 @@
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="<?php echo $data['media_title']; ?>" />
         <meta property="og:description"   content="<?php echo $data['media_description']; ?>" />
-        <meta property="og:image"         content="http://bosfundacja.pl/wp-content/uploads/2017/04/wchat-it.jpg" />
+        <meta property="og:image"         content="<?php echo base_url().'img/'.$data['media_id'].'.jpg'?>" />     
 
         <title>Uachit</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
