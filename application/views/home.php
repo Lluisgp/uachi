@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=0.6; user-scalable=0;">
         <title>Uachit</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -34,8 +35,9 @@
                         echo "?media_id=";
                         echo $fila['media_id'];
                         echo "'/a>";
-                        if ($fila['thumbnail']){
-                        echo '<img class="card-img-top" src="data:image/jpeg;base64,' . base64_encode($fila['thumbnail']) . '"/>';
+                        $filename = 'img/' . $fila['media_id'] . '.jpg';
+                        if (file_exists($filename)) {
+                        echo '<img class="card-img-top" src="'.base_url().'img/'.$fila['media_id'].'.jpg"/>';
                         } else {
                         echo '<img class="card-img-top" src = "';
                         echo base_url(); 
@@ -49,11 +51,6 @@
                         echo $fila['media_description'];
                         echo "</p>";
                         echo "</div>";
-//                        echo "<ul class='list-group list-group-flush'>";
-//                        echo "<li class='list-group-item'>";
-//                        echo $fila['media_tags'];
-//                        echo "</li>";
-//                        echo "</ul>";
                         echo "</div>";
                     }
                 }

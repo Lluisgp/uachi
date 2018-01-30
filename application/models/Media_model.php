@@ -34,7 +34,6 @@ class Media_model extends CI_model {
 
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         $this->db->where('media_id', $media_id);
         $query = $this->db->get();
         $row = $query->row_array();
@@ -53,7 +52,7 @@ class Media_model extends CI_model {
     public function search_media($media) {
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
+        // $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         if (strlen($media['media_title']) > 0) {
             $this->db->or_where('media_title', $media['media_title']);
         }
@@ -82,7 +81,7 @@ class Media_model extends CI_model {
     public function search_word_media($word) {
         $this->db->select('*');
         $this->db->from('media');
-        $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
+        // $this->db->join('thumbnails', 'media.media_id = thumbnails.id', 'left');
         $this->db->or_like('media_title', $word);
         $this->db->or_like('media_tags', $word);
 
@@ -102,7 +101,7 @@ class Media_model extends CI_model {
      */
     public function search_last_media() {
 
-        $query = "select * from media left join thumbnails on media.media_id=thumbnails.id order by media_date DESC limit 10";
+        $query = "select * from media order by media_date DESC limit 10";
 
         $res = $this->db->query($query);
 
@@ -132,38 +131,6 @@ class Media_model extends CI_model {
     }
 
     /**
-     * Upload thumbnail image for a media
-     * @param type $id
-     * @param type $imgdata
-     */
-    public function upload_image($id, $imgdata) {
-        $data['id'] = $id;
-        $data['thumbnail'] = $imgdata;
-        $this->db->insert('thumbnails', $data);
-    }
-
-    /**
-     * Update thumbnail image from a media
-     * @param type $id
-     * @param type $imgdata
-     */
-    public function update_image($id, $imgdata) {
-        $this->db->select('*');
-        $this->db->from('thumbnails');
-        $this->db->where('id', $id);
-
-        $res = $this->db->get();
-
-        if ($res->num_rows() > 0) {
-            $this->db->where('id', $id);
-            $data['thumbnail'] = $imgdata;
-            $this->db->update('thumbnails', $data);
-        } else {
-            $this->upload_image($id, $imgdata);
-        }
-    }
-
-    /**
      * Delete media resource
      * @param type $id
      * @return type
@@ -172,19 +139,7 @@ class Media_model extends CI_model {
         $this->db->where('media_id', $id);
         $this->db->delete('media');
         $result = $this->db->affected_rows();
-        $this->delete_thumbnails($id);
+        //$this->delete_thumbnails($id);
         return $result;
     }
-
-    /**
-     * Delete thumbnails image
-     * @param type $id
-     * @return type
-     */
-    public function delete_thumbnails($id) {
-        $this->db->where('id', $id);
-        $result = $this->db->delete('thumbnails');
-        return $result;
-    }
-
 }

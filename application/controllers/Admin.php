@@ -57,10 +57,19 @@ class Admin extends CI_Controller {
         );
         $insert_id = $this->media_model->register_media($media);
 
-        //upload thumbnail to bdd
+        //Write a image on a file
         if (!empty($_FILES['thumbnail']['tmp_name'])) {
-            $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
-            $this->media_model->upload_image($insert_id, $file_data);
+            $config['upload_path'] = 'img';
+            $config['allowed_types'] = 'jpg';
+            $config['file_name'] = $insert_id;
+            $config['overwrite'] = TRUE;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('thumbnail')) {
+                $errors .= "Errores al subir el archivo - ";
+            } else {
+                $errors .= "Archivo subido con éxito - ";
+            }
         }
 
         //Write a video on a file
@@ -108,9 +117,19 @@ class Admin extends CI_Controller {
             );
             $insert_id = $this->media_model->modify_media($media);
 
+            //Write a image on a file
             if (!empty($_FILES['thumbnail']['tmp_name'])) {
-                $file_data = file_get_contents($_FILES['thumbnail']['tmp_name']);
-                $this->media_model->update_image($insert_id, $file_data);
+                $config['upload_path'] = 'img';
+                $config['allowed_types'] = 'jpg';
+                $config['file_name'] = $insert_id;
+                $config['overwrite'] = TRUE;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('thumbnail')) {
+                    $errors .= "Errores al subir el archivo - ";
+                } else {
+                    $errors .= "Archivo subido con éxito - ";
+                }
             }
 
             if (!empty($_FILES['video']['tmp_name'])) {
@@ -148,8 +167,12 @@ class Admin extends CI_Controller {
         $resultat = $this->media_model->delete_media($id);
         if ($resultat > 0) {
             $filename = 'videos/' . $id . '.mp4';
+            $filenameImg = 'img/' . $id . '.jpg';
             if (file_exists($filename)) {
                 unlink($filename);
+            }
+            if (file_exists($filenameImg)) {
+                unlink($filenameImg);
             }
             $resultat = "Se ha borrado un registro con éxito";
         } else {
