@@ -8,6 +8,7 @@ class User extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('user_model');
         $this->load->library('session');
+        $this->load->helper('file');
     }
 
     /**
@@ -82,7 +83,7 @@ class User extends CI_Controller {
         $this->session->unset_userdata('success_msg');
         $this->session->unset_userdata('error_msg');
         $data = $this->user_model->login_user_facebook($this->input->post('user_email'));
-
+        $facebook_id = $this->input->post('facebook_id');
         if (!$data) {
             $user = array(
                 'user_name' => $this->input->post('user_name'),
@@ -91,6 +92,13 @@ class User extends CI_Controller {
             $this->user_model->register_user($user);
             $data = $this->user_model->login_user_facebook($this->input->post('user_email'));
         }
+
+        $img = file_get_contents('https://graph.facebook.com/' . $facebook_id . '/picture?type=large');
+        //Update image        
+        if ($img) {
+            write_file('pic' . DIRECTORY_SEPARATOR . $data['user_id'] . '.jpg', $img);
+        }
+
         $this->user_set_session($data);
         $this->load->view('user_profile.php');
     }
